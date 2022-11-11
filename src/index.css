@@ -1,0 +1,25 @@
+:root {
+	font-size: 16px;
+	width: 100vw;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	display: flex;
+	place-items: center;
+	width: 100vw;
+	min-height: 100vh;
+
+	background-color: #fef3de;
+}
+
+#root {
+	width: 100vw;
+	min-height: 100vh;
+}
