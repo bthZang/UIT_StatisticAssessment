@@ -1,0 +1,24 @@
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	.go-back {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+
+		cursor: pointer;
+
+		&:hover {
+			p {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.title {
+		font-weight: 700;
+		font-size: 26.0713px;
+	}
+}
