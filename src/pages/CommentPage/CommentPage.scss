@@ -1,0 +1,60 @@
+.comment-page {
+	padding: 65px;
+	display: grid;
+	gap: 40px;
+
+
+	.comment-box {
+		display: grid;
+		gap: 25px;
+
+		.comment-by-year {
+			display: grid;
+			gap: 20px;
+
+			.year-box {
+				position: relative;
+
+				p {
+					position: relative;
+					left: 20px;
+					padding: 0 5px;
+					width: fit-content;
+					background-color: var(--background);
+					z-index: 2;
+					font-size: 18px;
+					font-weight: 500;
+				}
+
+				div {
+					z-index: 1;
+					position: absolute;
+					top: 50%;
+
+					width: 100%;
+					height: 2px;
+					background-color: var(--primary);
+				}
+			}
+
+			.comment-groups {
+				display: grid;
+				gap: 15px;
+
+				p {
+					padding: 25px;
+					background-color: #fff;
+					border: 0.5px solid var(--gray);
+					border-radius: 6px;
+					font-weight: 500;
+
+					span {
+                  padding: 0 1px;
+						color: white;
+						background-color: var(--primary);
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,7 +1,43 @@
 .criteria-table {
+	display: grid;
+	gap: 30px;
+
+	.year-select {
+      padding: 0 20px;
+		display: flex;
+		gap: 20px;
+		align-items: center;
+
+      p {
+         font-weight: 600;
+      }
+	}
+
 	p {
 		font-family: "Baloo 2";
 		font-weight: 400;
 		font-size: 18px;
+	}
+
+   table {
+      p {
+         font-weight: 500;
+      }
+   }
+
+   .MuiTableRow-head {
+      p {
+         font-weight: 600;
+      }
+   }
+
+	.MuiTableRow-root:not(.MuiTableRow-head) {
+		cursor: pointer;
+
+		transition: 0.2s;
+
+		&:hover {
+			background-color: rgb(228, 228, 228);
+		}
 	}
 }

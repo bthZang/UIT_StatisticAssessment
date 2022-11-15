@@ -22,10 +22,10 @@ export default function HomePage() {
 				<button type="button" onClick={() => navigate("criteria")}>
 					Thống kê theo tiêu chí
 				</button>
-				<button type="button" onClick={() => navigate()}>
+				<button type="button" onClick={() => navigate("subject")}>
 					Thống kê theo môn học
 				</button>
-				<button type="button" onClick={() => navigate()}>
+				<button type="button" onClick={() => navigate("class")}>
 					Thống kê theo lớp
 				</button>
 			</div>

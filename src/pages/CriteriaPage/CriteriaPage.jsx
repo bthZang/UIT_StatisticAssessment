@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import CriteriaChart from "../../components/CriteriaChart/CriteriaChart";
 
 import CriteriaTable from "../../components/CriteriaTable/CriteriaTable";
@@ -11,37 +12,37 @@ const criteriaData = [
 		id: 1,
 		criteria:
 			"Chuẩn đầu ra, yêu cầu và nội dung môn học được giảng viên giới thiệu trong buổi học đầu tiên và thường xuyên nhắc lại trong các buổi học tiếp theo",
-		point: 85,
+		point: {
+			"2017-2018": 65,
+			"2018-2019": 70,
+			"2019-2020": 80,
+			"2020-2021": 85,
+			"2021-2022": 90,
+		},
 	},
 	{
 		id: 2,
 		criteria:
-			"Chuẩn đầu ra, yêu cầu và nội dung môn học được giảng viên giới thiệu trong buổi học đầu tiên và thường xuyên nhắc lại trong các buổi học tiếp theo",
-		point: 55,
+			"Phòng học/thí nghiệm và trang thiết bị đáp ứng yêu cầu giảng dạy và học tập.",
+		point: {
+			"2017-2018": 55,
+			"2018-2019": 70,
+			"2019-2020": 75,
+			"2020-2021": 85,
+			"2021-2022": 95,
+		},
 	},
 	{
 		id: 3,
 		criteria:
-			"Chuẩn đầu ra, yêu cầu và nội dung môn học được giảng viên giới thiệu trong buổi học đầu tiên và thường xuyên nhắc lại trong các buổi học tiếp theo",
-		point: 65,
-	},
-	{
-		id: 4,
-		criteria:
-			"Chuẩn đầu ra, yêu cầu và nội dung môn học được giảng viên giới thiệu trong buổi học đầu tiên và thường xuyên nhắc lại trong các buổi học tiếp theo",
-		point: 80,
-	},
-	{
-		id: 5,
-		criteria:
-			"Chuẩn đầu ra, yêu cầu và nội dung môn học được giảng viên giới thiệu trong buổi học đầu tiên và thường xuyên nhắc lại trong các buổi học tiếp theo",
-		point: 70,
-	},
-	{
-		id: 6,
-		criteria:
-			"Chuẩn đầu ra, yêu cầu và nội dung môn học được giảng viên giới thiệu trong buổi học đầu tiên và thường xuyên nhắc lại trong các buổi học tiếp theo",
-		point: 30,
+			"Giáo trình, bài giảng và tài liệu phục vụ môn học được cung cấp đầy đủ và cập nhật trên hệ thống Moodle",
+		point: {
+			"2017-2018": 60,
+			"2018-2019": 75,
+			"2019-2020": 80,
+			"2020-2021": 55,
+			"2021-2022": 95,
+		},
 	},
 ];
 
@@ -50,7 +51,7 @@ export default function CriteriaPage() {
 
 	return (
 		<div className="criteria-page">
-			<Header title={"Khảo sát theo tiêu chí"} />
+			<Header title={"Thống kê theo tiêu chí"} />
 			<DisplayTypeInput setChoice={setDisplayType} />
 			{displayType == 0 ? (
 				<CriteriaTable data={criteriaData} />
