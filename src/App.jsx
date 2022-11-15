@@ -7,6 +7,8 @@ import CriteriaPage from "./pages/CriteriaPage/CriteriaPage";
 import HomePage from "./pages/HomePage/HomePage";
 import StaffDetailPage from "./pages/StaffDetailPage/StaffDetailPage";
 import StaffPage from "./pages/StaffPage/StaffPage";
+import SubjectDetailPage from "./pages/SubjectDetailPage/SubjectDetailPage";
+import SubjectPage from "./pages/SubjectPage/SubjectPage";
 
 const router = createBrowserRouter([
 	{
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
 	{
 		path: "/class",
 		element: <ClassPage />,
+	},
+	{
+		path: "/subject",
+		element: <SubjectPage />,
+	},
+	{
+		path: "/subject/:subjectName",
+		element: <SubjectDetailPage />,
 	},
 ]);
 

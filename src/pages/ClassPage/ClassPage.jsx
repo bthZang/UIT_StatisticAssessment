@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import "./ClassPage.scss";
+import YearDropDown from "../../components/YearDropDown/YearDropDown";
 
 const data = [
 	{
@@ -37,6 +38,7 @@ export default function ClassPage() {
 		<div className="class-page">
 			<Header title="Thống kê theo lớp" />
 			<SearchBox placeholder="Nhập lớp cần tìm" />
+			<YearDropDown />
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }} aria-label="simple table">
 					<TableHead>

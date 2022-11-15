@@ -1,0 +1,38 @@
+.subject-page {
+	padding: 65px;
+
+	display: grid;
+	gap: 45px;
+
+	table {
+		p {
+			font-weight: 500;
+			font-size: 18px;
+		}
+	}
+
+	.MuiTableRow-head {
+		p {
+			font-weight: 600;
+		}
+	}
+
+	.link {
+		cursor: pointer;
+		color: var(--primary);
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.MuiTableRow-root:not(.MuiTableRow-head) {
+		// cursor: pointer;
+
+		transition: 0.2s;
+
+		&:hover {
+			// background-color: rgb(228, 228, 228);
+		}
+	}
+}
