@@ -11,7 +11,7 @@ import {
 
 import { Radar } from "react-chartjs-2";
 
-import "./CriteriaRadarChart.scss";
+import "./ClassRadarChart.scss";
 
 ChartJS.register(
 	RadialLinearScale,
@@ -51,7 +51,7 @@ export default function ClassRadarChart({ data }) {
 	console.log({ chartData });
 
 	return (
-		<div className="criteria-radar-chart">
+		<div className="class-radar-chart">
 			<Radar
 				data={chartData}
 				options={{

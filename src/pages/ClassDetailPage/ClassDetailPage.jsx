@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import CriteriaRadarChart from "../../components/CriteriaRadarChart/CriteriaRadarChart";
 import CriteriaTable from "../../components/CriteriaTable/CriteriaTable";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
 
 import Header from "../../components/Header/Header";
-import StaffRadarChart from "../../components/StaffRadarChart/StaffRadarChart";
 
 import "./ClassDetailPage.scss";
 
@@ -32,7 +32,7 @@ export default function ClassDetailPage() {
 			<Header title={`Lớp ${id}`} />
 			<DisplayTypeInput setChoice={setDisplayType} />
 			{displayType === 1 ? (
-				<StaffRadarChart data={staffData} />
+				<CriteriaRadarChart data={staffData} />
 			) : (
 				<CriteriaTable data={staffData} />
 			)}

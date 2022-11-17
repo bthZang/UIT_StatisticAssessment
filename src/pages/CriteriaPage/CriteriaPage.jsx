@@ -13,23 +13,23 @@ const criteriaData = [
 		criteria:
 			"Chuẩn đầu ra, yêu cầu và nội dung môn học được giảng viên giới thiệu trong buổi học đầu tiên và thường xuyên nhắc lại trong các buổi học tiếp theo",
 		point: {
-			"2017-2018": 65,
-			"2018-2019": 70,
-			"2019-2020": 80,
-			"2020-2021": 85,
-			"2021-2022": 90,
+			"2017-2018": parseInt(((Math.random() + 3) / 4) * 100),
+			"2018-2019": parseInt(((Math.random() + 3) / 4) * 100),
+			"2019-2020": parseInt(((Math.random() + 3) / 4) * 100),
+			"2020-2021": parseInt(((Math.random() + 3) / 4) * 100),
+			"2021-2022": parseInt(((Math.random() + 3) / 4) * 100),
 		},
 	},
 	{
 		id: 2,
 		criteria:
-			"Phòng học,thí nghiệm và trang thiết bị đáp ứng yêu cầu giảng dạy và học tập",
+			"Phòng học,thí nghiệm và trang thiết bị đáp ứng yêu cầu giảng dạy và học tập.",
 		point: {
-			"2017-2018": 55,
-			"2018-2019": 70,
-			"2019-2020": 75,
-			"2020-2021": 85,
-			"2021-2022": 95,
+			"2017-2018": parseInt(((Math.random() + 3) / 4) * 100),
+			"2018-2019": parseInt(((Math.random() + 3) / 4) * 100),
+			"2019-2020": parseInt(((Math.random() + 3) / 4) * 100),
+			"2020-2021": parseInt(((Math.random() + 3) / 4) * 100),
+			"2021-2022": parseInt(((Math.random() + 3) / 4) * 100),
 		},
 	},
 	{
@@ -37,11 +37,47 @@ const criteriaData = [
 		criteria:
 			"Giáo trình, bài giảng và tài liệu phục vụ môn học được cung cấp đầy đủ và cập nhật trên hệ thống Moodle",
 		point: {
-			"2017-2018": 60,
-			"2018-2019": 75,
-			"2019-2020": 80,
-			"2020-2021": 55,
-			"2021-2022": 95,
+			"2017-2018": parseInt(((Math.random() + 3) / 4) * 100),
+			"2018-2019": parseInt(((Math.random() + 3) / 4) * 100),
+			"2019-2020": parseInt(((Math.random() + 3) / 4) * 100),
+			"2020-2021": parseInt(((Math.random() + 3) / 4) * 100),
+			"2021-2022": parseInt(((Math.random() + 3) / 4) * 100),
+		},
+	},
+	{
+		id: 4,
+		criteria:
+			"Giảng viên hướng dẫn Anh/Chị phương pháp học tập chủ động và tạo động cơ học tập suốt đời",
+		point: {
+			"2017-2018": parseInt(((Math.random() + 3) / 4) * 100),
+			"2018-2019": parseInt(((Math.random() + 3) / 4) * 100),
+			"2019-2020": parseInt(((Math.random() + 3) / 4) * 100),
+			"2020-2021": parseInt(((Math.random() + 3) / 4) * 100),
+			"2021-2022": parseInt(((Math.random() + 3) / 4) * 100),
+		},
+	},
+	{
+		id: 5,
+		criteria:
+			"Giảng viên trình bày các vấn đề trong môn học mang tính cập nhật, chuẩn xác và có liên hệ thực tiễn",
+		point: {
+			"2017-2018": parseInt(((Math.random() + 3) / 4) * 100),
+			"2018-2019": parseInt(((Math.random() + 3) / 4) * 100),
+			"2019-2020": parseInt(((Math.random() + 3) / 4) * 100),
+			"2020-2021": parseInt(((Math.random() + 3) / 4) * 100),
+			"2021-2022": parseInt(((Math.random() + 3) / 4) * 100),
+		},
+	},
+	{
+		id: 6,
+		criteria:
+			"Phương pháp giảng dạy của giảng viên giúp Anh,Chị hiểu được và vận dụng được kiến thức",
+		point: {
+			"2017-2018": parseInt(((Math.random() + 3) / 4) * 100),
+			"2018-2019": parseInt(((Math.random() + 3) / 4) * 100),
+			"2019-2020": parseInt(((Math.random() + 3) / 4) * 100),
+			"2020-2021": parseInt(((Math.random() + 3) / 4) * 100),
+			"2021-2022": parseInt(((Math.random() + 3) / 4) * 100),
 		},
 	},
 ];
