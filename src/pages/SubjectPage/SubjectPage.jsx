@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,6 +14,8 @@ import YearDropDown from "../../components/YearDropDown/YearDropDown";
 
 import "./SubjectPage.scss";
 import { useNavigate } from "react-router-dom";
+import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
+import SubjectHistogramChart from "../../components/SubjectHistogramChart/SubjectHistogramChart";
 
 const data = [
 	{
@@ -70,126 +74,140 @@ const data = [
 export default function SubjectPage() {
 	const navigate = useNavigate();
 
+	const [displayType, setDisplayType] = useState(0);
+
 	return (
 		<div className="subject-page">
 			<Header title="Thống kê theo môn" />
-			<SearchBox placeholder="Nhập mã môn học cần tìm..." />
+			<DisplayTypeInput setChoice={setDisplayType} />
 			<YearDropDown />
-			<TableContainer component={Paper}>
-				<Table sx={{ minWidth: 650 }} aria-label="simple table">
-					<TableHead>
-						<TableRow>
-							<TableCell
-								sx={{ width: 200 }}
-								align="center"
-								component="th"
-								scope="row"
-							>
-								<p>Tên môn học</p>
-							</TableCell>
-							<TableCell sx={{ width: "200px" }} align="center">
-								<p>Mã lớp</p>
-							</TableCell>
-							<TableCell sx={{ width: "200px" }} align="center">
-								<p>Mã cán bộ</p>
-							</TableCell>
-							<TableCell sx={{ width: "200px" }} align="center">
-								<p>Điểm đánh giá</p>
-							</TableCell>
-							<TableCell style={{ width: "700px" }} align="center">
-								<p>Nhận xét</p>
-							</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{data.map((subject) => (
-							<>
-								<TableRow
-									rowSpan={subject.classes.reduce(
-										(sum, value) => sum + value.comments.length,
-										0
-									)}
-								>
+			{displayType === 1 ? (
+				<SubjectHistogramChart />
+			) : (
+				<>
+					<SearchBox placeholder="Nhập mã môn học cần tìm..." />
+					<TableContainer component={Paper}>
+						<Table sx={{ minWidth: 650 }} aria-label="simple table">
+							<TableHead>
+								<TableRow>
 									<TableCell
 										sx={{ width: 200 }}
 										align="center"
 										component="th"
 										scope="row"
 									>
-										<p
-											className="link"
-											onClick={() =>
-												navigate(`/subject/${subject.name}`)
-											}
-										>
-											{subject.name}
-										</p>
+										<p>Tên môn học</p>
 									</TableCell>
-									<TableCell colSpan={4} sx={{ padding: 0 }}>
-										<Table sx={{ width: "100%" }}>
-											<TableBody>
-												{subject.classes.map((classInfo) => (
-													<TableRow
-														rowSpan={classInfo.comments.length}
-														align="center"
-														component="tr"
-													>
-														<TableCell
-															sx={{ width: "200px" }}
-															align="center"
-														>
-															<p
-																className="link"
-																onClick={() =>
-																	navigate(
-																		`/class/${classInfo.classID}`
-																	)
-																}
-															>
-																{classInfo.classID}
-															</p>
-														</TableCell>
-														<TableCell
-															sx={{ width: "200px" }}
-															align="center"
-														>
-															<p>{classInfo.staff}</p>
-														</TableCell>
-														<TableCell
-															sx={{ width: "200px" }}
-															align="center"
-														>
-															<p>{classInfo.point}</p>
-														</TableCell>
-														<TableCell
-															sx={{ padding: 0, width: "700px" }}
-														>
-															{classInfo.comments.map(
-																(comment) => (
-																	<TableRow>
-																		<TableCell
-																			style={{
-																				width: "700px",
-																			}}
-																			align="center"
-																		>
-																			<p>{comment}</p>
-																		</TableCell>
-																	</TableRow>
-																)
-															)}
-														</TableCell>
-													</TableRow>
-												))}
-											</TableBody>
-										</Table>
+									<TableCell sx={{ width: "200px" }} align="center">
+										<p>Mã lớp</p>
+									</TableCell>
+									<TableCell sx={{ width: "200px" }} align="center">
+										<p>Mã cán bộ</p>
+									</TableCell>
+									<TableCell sx={{ width: "200px" }} align="center">
+										<p>Điểm đánh giá</p>
+									</TableCell>
+									<TableCell style={{ width: "700px" }} align="center">
+										<p>Nhận xét</p>
 									</TableCell>
 								</TableRow>
-							</>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
+							</TableHead>
+							<TableBody>
+								{data.map((subject) => (
+									<>
+										<TableRow
+											rowSpan={subject.classes.reduce(
+												(sum, value) => sum + value.comments.length,
+												0
+											)}
+										>
+											<TableCell
+												sx={{ width: 200 }}
+												align="center"
+												component="th"
+												scope="row"
+											>
+												<p
+													className="link"
+													onClick={() =>
+														navigate(`/subject/${subject.name}`)
+													}
+												>
+													{subject.name}
+												</p>
+											</TableCell>
+											<TableCell colSpan={4} sx={{ padding: 0 }}>
+												<Table sx={{ width: "100%" }}>
+													<TableBody>
+														{subject.classes.map((classInfo) => (
+															<TableRow
+																rowSpan={
+																	classInfo.comments.length
+																}
+																align="center"
+																component="tr"
+															>
+																<TableCell
+																	sx={{ width: "200px" }}
+																	align="center"
+																>
+																	<p
+																		className="link"
+																		onClick={() =>
+																			navigate(
+																				`/class/${classInfo.classID}`
+																			)
+																		}
+																	>
+																		{classInfo.classID}
+																	</p>
+																</TableCell>
+																<TableCell
+																	sx={{ width: "200px" }}
+																	align="center"
+																>
+																	<p>{classInfo.staff}</p>
+																</TableCell>
+																<TableCell
+																	sx={{ width: "200px" }}
+																	align="center"
+																>
+																	<p>{classInfo.point}</p>
+																</TableCell>
+																<TableCell
+																	sx={{
+																		padding: 0,
+																		width: "700px",
+																	}}
+																>
+																	{classInfo.comments.map(
+																		(comment) => (
+																			<TableRow>
+																				<TableCell
+																					style={{
+																						width: "700px",
+																					}}
+																					align="center"
+																				>
+																					<p>{comment}</p>
+																				</TableCell>
+																			</TableRow>
+																		)
+																	)}
+																</TableCell>
+															</TableRow>
+														))}
+													</TableBody>
+												</Table>
+											</TableCell>
+										</TableRow>
+									</>
+								))}
+							</TableBody>
+						</Table>
+					</TableContainer>
+				</>
+			)}
 		</div>
 	);
 }

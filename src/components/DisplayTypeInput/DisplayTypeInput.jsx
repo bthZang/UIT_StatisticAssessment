@@ -4,13 +4,13 @@ import "./DisplayTypeInput.scss";
 
 export default function DisplayTypeInput({
 	choices = ["Dạng bảng", "Dạng biểu đồ"],
-	setChoice,
+	setChoice = () => {},
 }) {
 	const [selected, setSelected] = useState(choices[0] || "");
 
 	useEffect(() => {
-      setChoice(choices.indexOf(selected))
-   }, [selected]);
+		setChoice(choices.indexOf(selected));
+	}, [selected]);
 
 	return (
 		<div className="display-type-input">

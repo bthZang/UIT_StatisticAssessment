@@ -52,7 +52,16 @@ export default function CriteriaRadarChart({ data }) {
 
 	return (
 		<div className="criteria-radar-chart">
-			<Radar data={chartData} />
+			<Radar
+				data={chartData}
+				options={{
+					scales: {
+						r: {
+							beginAtZero: true,
+						},
+					},
+				}}
+			/>
 		</div>
 	);
 }
