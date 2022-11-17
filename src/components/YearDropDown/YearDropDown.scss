@@ -4,7 +4,8 @@
 	gap: 20px;
 	align-items: center;
 
-	p {
+	& > p {
+		font-size: 18px;
 		font-weight: 600;
 	}
 }

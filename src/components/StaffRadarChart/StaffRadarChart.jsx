@@ -103,7 +103,7 @@ export default function StaffRadarChart({ data }) {
 			// labels: Array(20)
 			// 	.fill("")
 			// 	.map((_, index) => `Tiêu chí ${index + 1}`),
-			labels: criteriaData.map((v) => v.criteria.substring(0, 30)),
+			labels: criteriaData.map((v) => v.criteria),
 			datasets: [
 				{
 					label: "Điểm đánh giá",
