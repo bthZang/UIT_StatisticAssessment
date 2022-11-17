@@ -3,7 +3,7 @@
 	display: flex;
 	justify-content: space-between;
 	gap: 30px;
-	height: 45px;
+	// height: 45px;
 
 	.input-box {
 		width: 100%;
@@ -11,7 +11,7 @@
 		border: 0.6px solid var(--gray);
 		border-radius: 10px;
 		height: 100%;
-		padding: 0 15px;
+		padding: 10px 15px;
 
 		display: flex;
 		align-items: center;
@@ -21,7 +21,7 @@
 			border: none;
 			outline: none;
 			width: 100%;
-			font-size: 15px;
+			font-size: 18px;
 		}
 	}
 }

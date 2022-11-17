@@ -75,9 +75,9 @@ const chartData = {
 	],
 };
 
-export default function StaffHistogramChart() {
+export default function VerticalBarChart() {
 	return (
-		<div className="criteria-chart">
+		<div className="vertical-bar-chart">
 			<Bar options={options} data={chartData} />
 		</div>
 	);
