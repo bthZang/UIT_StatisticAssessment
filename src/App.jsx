@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ClassDetailPage from "./pages/ClassDetailPage/ClassDetailPage";
 import ClassPage from "./pages/ClassPage/ClassPage";
 import CommentPage from "./pages/CommentPage/CommentPage";
 import CriteriaDetailPage from "./pages/CriteriaDetailPage/CriteriaDetailPage";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
 	{
 		path: "/class",
 		element: <ClassPage />,
+	},
+	{
+		path: "/class/:id",
+		element: <ClassDetailPage />,
 	},
 	{
 		path: "/subject",

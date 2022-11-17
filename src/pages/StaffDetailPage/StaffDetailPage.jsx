@@ -36,8 +36,6 @@ export default function StaffDetailPage() {
 			) : (
 				<CriteriaTable data={staffData} />
 			)}
-			{/* <div className="introduction"></div>
-			<div className="navigation"></div> */}
 		</div>
 	);
 }

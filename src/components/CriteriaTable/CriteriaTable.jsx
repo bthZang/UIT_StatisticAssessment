@@ -41,7 +41,7 @@ export default function CriteriaTable({ data }) {
 						{data.map((row, index) => (
 							<TableRow
 								key={row.id}
-								onClick={() => navigate(`/criteria/${index}`)}
+								onClick={() => navigate(`/criteria/${row.criteria}`)}
 								sx={{
 									"&:last-child td, &:last-child th": { border: 0 },
 								}}

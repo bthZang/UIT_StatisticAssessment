@@ -27,10 +27,16 @@ export const options = {
 		},
 		title: {
 			display: true,
-			text: "Biểu đồ phân bố điểm đánh giá giảng viên",
+			text: "Biểu đồ phổ điểm đánh giá giảng viên",
 		},
 	},
 	scales: {
+		x: {
+			title: {
+				display: true,
+				text: "Điểm đánh giá",
+			},
+		},
 		y: {
 			title: {
 				display: true,
@@ -49,9 +55,11 @@ const chartData = {
 			label: "Điểm đánh giá giảng viên 2021 -2022 (%)",
 			data: Array(40)
 				.fill("")
-				.map(
-					(_, index) =>
-						parseInt(Math.random() * 5 + Math.pow(40 - Math.abs(30 - index), 2) / 60)
+				.map((_, index) =>
+					parseInt(
+						Math.random() * 5 +
+							Math.pow(40 - Math.abs(30 - index), 2) / 60
+					)
 				),
 			backgroundColor: "#bdb2ff",
 		},

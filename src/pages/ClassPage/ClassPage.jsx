@@ -14,6 +14,7 @@ import YearDropDown from "../../components/YearDropDown/YearDropDown";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
 import { useState } from "react";
 import ClassHistogramChart from "../../components/ClassHistogramChart/ClassHistogramChart";
+import { useNavigate } from "react-router-dom";
 
 const data = [
 	{
@@ -37,6 +38,7 @@ const data = [
 ];
 
 export default function ClassPage() {
+	const navigate = useNavigate();
 	const [displayType, setDisplayType] = useState(0);
 
 	return (

@@ -23,7 +23,7 @@ const criteriaData = [
 	{
 		id: 2,
 		criteria:
-			"Phòng học/thí nghiệm và trang thiết bị đáp ứng yêu cầu giảng dạy và học tập.",
+			"Phòng học,thí nghiệm và trang thiết bị đáp ứng yêu cầu giảng dạy và học tập",
 		point: {
 			"2017-2018": 55,
 			"2018-2019": 70,

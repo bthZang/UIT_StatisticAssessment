@@ -3,4 +3,20 @@
 	height: 100%;
 
 	padding: 65px;
+
+	display: grid;
+	gap: 45px;
+
+	& > div > p {
+		// padding: 0 150px;
+		text-align: center;
+		font-weight: 600;
+		font-size: 20px;
+	}
+
+	& > p {
+		text-align: center;
+		font-weight: 600;
+		font-size: 20px;
+	}
 }

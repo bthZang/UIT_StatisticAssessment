@@ -27,10 +27,16 @@ export const options = {
 		},
 		title: {
 			display: true,
-			text: "Biểu đồ phân bố điểm đánh giá lớp",
+			text: "Biểu đồ phổ điểm đánh giá lớp",
 		},
 	},
 	scales: {
+		x: {
+			title: {
+				display: true,
+				text: "Điểm đánh giá",
+			},
+		},
 		y: {
 			title: {
 				display: true,
