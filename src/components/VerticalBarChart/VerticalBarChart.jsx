@@ -75,6 +75,7 @@ const chartData = {
 	],
 };
 
+
 export default function VerticalBarChart() {
 	return (
 		<div className="vertical-bar-chart">
