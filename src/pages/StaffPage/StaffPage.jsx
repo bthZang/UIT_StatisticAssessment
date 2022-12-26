@@ -15,71 +15,27 @@ import Paper from "@mui/material/Paper";
 import "./StaffPage.scss";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
 import StaffHistogramChart from "../../components/StaffHistogramChart/StaffHistogramChart";
-import YearDropDown from "../../components/YearDropDown/YearDropDown";
+import SemesterDropDown from "../../components/YearDropDown/YearDropDown";
 import StaffTable from "../../components/StaffTable/StaffTable";
-
-const data = [
-	{
-		id: 80200,
-		taughtClass: [
-			{
-				name: "IT008.N11.PMCL",
-				year: "2021-2022",
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-			},
-			{
-				name: "IT009.N11.PMCL",
-				year: "2021-2022",
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-			},
-			{
-				name: "IT008.N12.PMCL",
-				year: "2021-2022",
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-			},
-		],
-		point: 3.5,
-	},
-	{
-		id: 80210,
-		taughtClass: [
-			{
-				name: "IT008.N11.PMCL",
-				year: "2021-2022",
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-			},
-			{
-				name: "IT009.N11.PMCL",
-				year: "2021-2022",
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-			},
-			{
-				name: "IT008.N12.PMCL",
-				year: "2021-2022",
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-			},
-		],
-		point: 3.8,
-	},
-];
+import { SEMESTER_NAME } from "../../constants/semesterName";
 
 export default function StaffPage() {
 	const navigate = useNavigate();
 
 	const [displayType, setDisplayType] = useState(0);
 
-	const [year, setYear] = useState("2021-2022");
+	const [semester, setSemester] = useState(SEMESTER_NAME[0]);
 
 	return (
 		<div className="staff-page">
 			<Header title={"Thống kê cán bộ"} />
 			<DisplayTypeInput setChoice={setDisplayType} />
-			<YearDropDown year={year} onChange={setYear} />
+			<SemesterDropDown year={semester} onChange={setSemester} />
 			{displayType === 1 ? (
-				<StaffHistogramChart />
+				<StaffHistogramChart semester={semester} />
 			) : (
 				<>
-					<StaffTable data={data} />
+					<StaffTable semester={semester} />
 					{/* <TableContainer component={Paper}>
 						<Table sx={{ minWidth: 650 }} aria-label="simple table">
 							<TableHead>

@@ -1,15 +1,17 @@
-import React, { useRef } from "react";
 import {
-	Chart as ChartJS,
-	CategoryScale,
-	LinearScale,
 	BarElement,
+	CategoryScale,
+	Chart as ChartJS,
+	Legend,
+	LinearScale,
 	Title,
 	Tooltip,
-	Legend,
 } from "chart.js";
-import { Bar, getDatasetAtEvent, getElementAtEvent } from "react-chartjs-2";
+import React, { useRef } from "react";
+import { Bar, getElementAtEvent } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { selectStaffHistogramData } from "../../features/staff/staffSlice";
 
 ChartJS.register(
 	CategoryScale,
@@ -56,29 +58,22 @@ export const options = {
 	},
 };
 
-const chartData = {
-	labels: Array(40)
-		.fill("")
-		.map((v, index) => index / 10),
-	datasets: [
-		{
-			label: "Điểm đánh giá giảng viên 2021 -2022 (%)",
-			data: Array(40)
-				.fill("")
-				.map((_, index) =>
-					parseInt(
-						Math.random() * 5 +
-							Math.pow(40 - Math.abs(30 - index), 2) / 60
-					)
-				),
-			backgroundColor: "#bdb2ff",
-		},
-	],
-};
-
-export default function StaffHistogramChart() {
+export default function StaffHistogramChart({ semester }) {
 	const ref = useRef();
 	const navigate = useNavigate();
+
+	const { labels, data } = useSelector(selectStaffHistogramData(semester));
+
+	const chartData = {
+		labels,
+		datasets: [
+			{
+				label: `Điểm đánh giá giảng viên ${semester} (%)`,
+				data,
+				backgroundColor: "#bdb2ff",
+			},
+		],
+	};
 
 	function handleClick(event) {
 		const eventList = getElementAtEvent(ref.current, event);

@@ -100,9 +100,6 @@ const criteriaData = [
 export default function StaffRadarChart({ data }) {
 	const chartData = useMemo(
 		() => ({
-			// labels: Array(20)
-			// 	.fill("")
-			// 	.map((_, index) => `Tiêu chí ${index + 1}`),
 			labels: criteriaData.map((v) => v.criteria),
 			datasets: [
 				{

@@ -1,17 +1,20 @@
-import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 
 import "./CriteriaTable.scss";
-import YearDropDown from "../YearDropDown/YearDropDown";
+import { useSelector } from "react-redux";
+import {
+	selectStaffAssessmentData,
+	selectStaffCriteria,
+} from "../../features/staff/staffSlice";
+import { CRITERIA_NAME } from "../../constants/criteriaName";
 
 const criteriaData = [
 	{
@@ -91,15 +94,8 @@ const criteriaData = [
 export default function CriteriaTable({ data }) {
 	const navigate = useNavigate();
 
-	const [year, setYear] = useState("2021-2022");
-
-	const handleChange = (event) => {
-		setYear(event.target.value);
-	};
-
 	return (
 		<div className="criteria-table">
-			<YearDropDown year={year} handleChange={handleChange} />
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }} aria-label="simple table">
 					<TableHead>
@@ -108,24 +104,24 @@ export default function CriteriaTable({ data }) {
 								<p>Tiêu chí</p>
 							</TableCell>
 							<TableCell align="right">
-								<p>Mức độ hài lòng</p>
+								<p>Điểm đánh giá trung bình</p>
 							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{criteriaData.map((row, index) => (
+						{data?.map?.((row, index) => (
 							<TableRow
 								key={row.id}
-								onClick={() => navigate(`/criteria/${row.criteria}`)}
+								onClick={() => navigate(`/criteria/${index}`)}
 								sx={{
 									"&:last-child td, &:last-child th": { border: 0 },
 								}}
 							>
 								<TableCell component="th" scope="row">
-									<p>{row.criteria}</p>
+									<p>{CRITERIA_NAME[index]}</p>
 								</TableCell>
 								<TableCell align="right">
-									<p>{row.point[year]}%</p>
+									<p>{row}</p>
 								</TableCell>
 							</TableRow>
 						))}

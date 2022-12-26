@@ -9,6 +9,8 @@ import {
 	Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { useSelector } from "react-redux";
+import { selectStaffAssessmentData } from "../../features/staff/staffSlice";
 
 ChartJS.register(
 	CategoryScale,
@@ -49,16 +51,40 @@ const chartData = {
 			label: "Điểm đánh giá môn học 2021 -2022 (%)",
 			data: Array(40)
 				.fill("")
-				.map(
-					(_, index) =>
-						parseInt(Math.random() * 5 + Math.pow(40 - Math.abs(30 - index), 2) / 60)
+				.map((_, index) =>
+					parseInt(
+						Math.random() * 5 +
+							Math.pow(40 - Math.abs(30 - index), 2) / 60
+					)
 				),
 			backgroundColor: "#bdb2ff",
 		},
 	],
 };
 
-export default function SubjectHistogramChart() {
+export default function SubjectHistogramChart({ semester }) {
+	const data = useSelector(selectStaffAssessmentData(semester));
+
+	const chartData = {
+		labels: Array(40)
+			.fill("")
+			.map((v, index) => index / 10),
+		datasets: [
+			{
+				label: `Điểm đánh giá môn học 2021-2022 (%)`,
+				data: Array(40)
+					.fill("")
+					.map((_, index) =>
+						parseInt(
+							Math.random() * 5 +
+								Math.pow(40 - Math.abs(30 - index), 2) / 60
+						)
+					),
+				backgroundColor: "#bdb2ff",
+			},
+		],
+	};
+
 	return (
 		<div className="criteria-chart">
 			<Bar options={options} data={chartData} />

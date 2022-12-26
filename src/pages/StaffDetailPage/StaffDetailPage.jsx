@@ -7,6 +7,13 @@ import Header from "../../components/Header/Header";
 import StaffRadarChart from "../../components/StaffRadarChart/StaffRadarChart";
 
 import "./StaffDetailPage.scss";
+import SemesterDropDown from "../../components/YearDropDown/YearDropDown";
+import { SEMESTER_NAME } from "../../constants/semesterName";
+import {
+	selectStaffCriteria,
+	selectStaffInfo,
+} from "../../features/staff/staffSlice";
+import { useSelector } from "react-redux";
 
 const staffData = Array(20)
 	.fill("")
@@ -27,14 +34,21 @@ export default function StaffDetailPage() {
 
 	const [displayType, setDisplayType] = useState(0);
 
+	const [semester, setSemester] = useState(SEMESTER_NAME[0]);
+
+	const data = useSelector(selectStaffCriteria(semester, id));
+	const profile = useSelector(selectStaffInfo(id));
+	console.log({ profile });
+
 	return (
 		<div className="staff-detail-page">
 			<Header title={`Mã cán bộ ${id}`} />
 			<DisplayTypeInput setChoice={setDisplayType} />
+			<SemesterDropDown semester={semester} onChange={setSemester} />
 			{displayType === 1 ? (
 				<StaffRadarChart data={staffData} />
 			) : (
-				<CriteriaTable data={staffData} />
+				<CriteriaTable data={data} />
 			)}
 		</div>
 	);

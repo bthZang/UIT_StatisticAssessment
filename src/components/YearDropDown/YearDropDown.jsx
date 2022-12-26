@@ -5,9 +5,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import "./YearDropDown.scss";
+import { SEMESTER_NAME } from "../../constants/semesterName";
 
-export default function YearDropDown({
-	year = "2021-2022",
+export default function SemesterDropDown({
+	year = SEMESTER_NAME[0],
 	onChange = () => {},
 }) {
 	function handleChange(e) {
@@ -27,10 +28,11 @@ export default function YearDropDown({
 						label="Năm học"
 						onChange={handleChange}
 					>
-						<MenuItem value={"2021-2022"}>2021-2022</MenuItem>
-						<MenuItem value={"2020-2021"}>2020-2021</MenuItem>
-						<MenuItem value={"2019-2020"}>2019-2020</MenuItem>
-						<MenuItem value={"2018-2019"}>2018-2019</MenuItem>
+						{SEMESTER_NAME.map((name) => (
+							<MenuItem key={name} value={name}>
+								{name}
+							</MenuItem>
+						))}
 					</Select>
 				</FormControl>
 			</Box>
