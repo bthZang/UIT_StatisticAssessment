@@ -1,4 +1,6 @@
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { RouterProvider, createHashRouter } from "react-router-dom";
+
 import ClassDetailPage from "./pages/ClassDetailPage/ClassDetailPage";
 import ClassPage from "./pages/ClassPage/ClassPage";
 import CommentPage from "./pages/CommentPage/CommentPage";
@@ -10,6 +12,9 @@ import StaffDetailPage from "./pages/StaffDetailPage/StaffDetailPage";
 import StaffPage from "./pages/StaffPage/StaffPage";
 import SubjectDetailPage from "./pages/SubjectDetailPage/SubjectDetailPage";
 import SubjectPage from "./pages/SubjectPage/SubjectPage";
+
+import { useEffect } from "react";
+import { loadData } from "./features/staff/staffSlice";
 
 const router = createHashRouter([
 	{
@@ -55,6 +60,12 @@ const router = createHashRouter([
 ]);
 
 function App() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(loadData());
+	}, []);
+
 	return (
 		<div className="App">
 			<RouterProvider router={router}></RouterProvider>

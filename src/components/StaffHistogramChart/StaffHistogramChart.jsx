@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -8,7 +8,8 @@ import {
 	Tooltip,
 	Legend,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, getDatasetAtEvent, getElementAtEvent } from "react-chartjs-2";
+import { useNavigate } from "react-router-dom";
 
 ChartJS.register(
 	CategoryScale,
@@ -76,9 +77,26 @@ const chartData = {
 };
 
 export default function StaffHistogramChart() {
+	const ref = useRef();
+	const navigate = useNavigate();
+
+	function handleClick(event) {
+		const eventList = getElementAtEvent(ref.current, event);
+		if (eventList.length > 0) {
+			const index = eventList[0].index;
+			const label = chartData.labels[index];
+			navigate(`/staff/detailStatistic/${label}`);
+		}
+	}
+
 	return (
 		<div className="criteria-chart">
-			<Bar options={options} data={chartData} />
+			<Bar
+				ref={ref}
+				options={options}
+				data={chartData}
+				onClick={handleClick}
+			/>
 		</div>
 	);
 }

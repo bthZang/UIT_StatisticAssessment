@@ -8,8 +8,13 @@ import "./YearDropDown.scss";
 
 export default function YearDropDown({
 	year = "2021-2022",
-	handleChange = () => {},
+	onChange = () => {},
 }) {
+	function handleChange(e) {
+		const value = e.target.value;
+		onChange(value);
+	}
+
 	return (
 		<div className="year-drop-down">
 			<p>Chọn năm học: </p>

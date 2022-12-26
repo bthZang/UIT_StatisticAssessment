@@ -16,13 +16,16 @@
     "@emotion/styled": "^11.10.5",
     "@infinite-table/infinite-react": "^0.6.0",
     "@mui/material": "^5.10.13",
+    "@reduxjs/toolkit": "^1.9.1",
     "chart.js": "^3.9.1",
     "count-lines-of-code": "^1.0.6",
     "faker": "^6.6.6",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
+    "redux": "^4.2.0",
     "sass": "^1.56.1"
   },
   "devDependencies": {

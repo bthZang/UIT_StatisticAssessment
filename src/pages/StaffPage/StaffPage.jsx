@@ -16,6 +16,7 @@ import "./StaffPage.scss";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
 import StaffHistogramChart from "../../components/StaffHistogramChart/StaffHistogramChart";
 import YearDropDown from "../../components/YearDropDown/YearDropDown";
+import StaffTable from "../../components/StaffTable/StaffTable";
 
 const data = [
 	{
@@ -67,22 +68,19 @@ export default function StaffPage() {
 
 	const [displayType, setDisplayType] = useState(0);
 
-	const [keyword, setKeyword] = useState("");
+	const [year, setYear] = useState("2021-2022");
 
 	return (
 		<div className="staff-page">
 			<Header title={"Thống kê cán bộ"} />
 			<DisplayTypeInput setChoice={setDisplayType} />
-			<YearDropDown />
+			<YearDropDown year={year} onChange={setYear} />
 			{displayType === 1 ? (
 				<StaffHistogramChart />
 			) : (
 				<>
-					<SearchBox
-						placeholder={"Nhập mã cán bộ cần tìm..."}
-						onChange={setKeyword}
-					/>
-					<TableContainer component={Paper}>
+					<StaffTable data={data} />
+					{/* <TableContainer component={Paper}>
 						<Table sx={{ minWidth: 650 }} aria-label="simple table">
 							<TableHead>
 								<TableRow>
@@ -189,7 +187,7 @@ export default function StaffPage() {
 								))}
 							</TableBody>
 						</Table>
-					</TableContainer>
+					</TableContainer> */}
 				</>
 			)}
 		</div>

@@ -17,6 +17,7 @@ export default function DisplayTypeInput({
 			<div className="choices">
 				{choices.map((choice, index) => (
 					<div
+						key={choice}
 						className={`choice ${selected === choice && "selected"}`}
 						onClick={() => setSelected(choice)}
 					>
