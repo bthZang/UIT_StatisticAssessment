@@ -14,7 +14,7 @@
 
 		.row {
 			display: flex;
-			width: 200%;
+			width: 300%;
 			font-weight: 500;
 
 			transition: 0.3s;
@@ -22,11 +22,16 @@
 			& > p {
 				text-align: center;
 				border-bottom: 1px solid black;
+				border-right: 1px solid black;
 				padding: 10px 0;
 			}
 
 			.stt {
 				flex: 1;
+			}
+
+			.teacher {
+				flex: 2;
 			}
 
 			.mscb {
@@ -38,7 +43,7 @@
 			}
 
 			.subject {
-				flex: 3;
+				flex: 2;
 			}
 
 			.class {
