@@ -14,7 +14,8 @@ import SubjectDetailPage from "./pages/SubjectDetailPage/SubjectDetailPage";
 import SubjectPage from "./pages/SubjectPage/SubjectPage";
 
 import { useEffect } from "react";
-import { loadData } from "./features/staff/staffSlice";
+import { loadAssessmentData } from "./features/assessment/assessmentSlice";
+import { loadCommentData } from "./features/comments/commentSlice";
 
 const router = createHashRouter([
 	{
@@ -63,7 +64,8 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(loadData());
+		dispatch(loadAssessmentData());
+		dispatch(loadCommentData());
 	}, []);
 
 	return (

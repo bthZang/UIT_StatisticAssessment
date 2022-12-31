@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 
 import Header from "../../components/Header/Header";
 import SearchBox from "../../components/SearchBox/SearchBox";
-import YearDropDown from "../../components/YearDropDown/YearDropDown";
+import YearDropDown from "../../components/SemesterDropDown/SemesterDropDown";
 
 import "./SubjectPage.scss";
 import { useNavigate } from "react-router-dom";

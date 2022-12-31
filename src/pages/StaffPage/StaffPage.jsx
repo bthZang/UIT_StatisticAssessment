@@ -15,7 +15,7 @@ import Paper from "@mui/material/Paper";
 import "./StaffPage.scss";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
 import StaffHistogramChart from "../../components/StaffHistogramChart/StaffHistogramChart";
-import SemesterDropDown from "../../components/YearDropDown/YearDropDown";
+import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
 import StaffTable from "../../components/StaffTable/StaffTable";
 import { SEMESTER_NAME } from "../../constants/semesterName";
 

@@ -10,7 +10,7 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useSelector } from "react-redux";
-import { selectStaffAssessmentData } from "../../features/staff/staffSlice";
+import { selectStaffAssessmentData } from "../../features/assessment/assessmentSlice";
 
 ChartJS.register(
 	CategoryScale,

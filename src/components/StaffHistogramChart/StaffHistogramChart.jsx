@@ -11,7 +11,7 @@ import React, { useRef } from "react";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectStaffHistogramData } from "../../features/staff/staffSlice";
+import { selectStaffHistogramData } from "../../features/assessment/assessmentSlice";
 
 ChartJS.register(
 	CategoryScale,

@@ -7,12 +7,12 @@ import Header from "../../components/Header/Header";
 import StaffRadarChart from "../../components/StaffRadarChart/StaffRadarChart";
 
 import "./StaffDetailPage.scss";
-import SemesterDropDown from "../../components/YearDropDown/YearDropDown";
+import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
 import { SEMESTER_NAME } from "../../constants/semesterName";
 import {
 	selectStaffCriteria,
 	selectStaffInfo,
-} from "../../features/staff/staffSlice";
+} from "../../features/assessment/assessmentSlice";
 import { useSelector } from "react-redux";
 
 const staffData = Array(20)

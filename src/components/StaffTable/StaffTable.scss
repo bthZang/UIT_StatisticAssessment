@@ -6,7 +6,9 @@
 
 	.table {
 		width: 100%;
-		overflow-x: scroll;
+		height: 500px;
+		overflow: scroll;
+		position: relative;
 		font-size: 1.1rem;
 		background-color: #fcfaf7;
 		border: 1px solid black;
@@ -70,7 +72,7 @@
 			&.header {
 				height: 60px;
 				align-items: center;
-				position: sticky;
+				position: absolute;
 
 				& > p {
 					height: 100%;
@@ -84,6 +86,14 @@
 			&:not(.header):hover {
 				background-color: #d0d9ff;
 			}
+		}
+
+		.table-body {
+			position: relative;
+			top: 60px;
+			// width: 100%;
+			// height: 500px;
+			// overflow-y: scroll;
 		}
 	}
 }

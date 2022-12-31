@@ -1,0 +1,10 @@
+.type-drop-down {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+
+	& > p {
+		font-size: 18px;
+		font-weight: 600;
+	}
+}

@@ -10,7 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import "./ClassPage.scss";
-import YearDropDown from "../../components/YearDropDown/YearDropDown";
+import YearDropDown from "../../components/SemesterDropDown/SemesterDropDown";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
 import { useState } from "react";
 import ClassHistogramChart from "../../components/ClassHistogramChart/ClassHistogramChart";

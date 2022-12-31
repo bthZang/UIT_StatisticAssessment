@@ -1,9 +1,16 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 import Header from "../../components/Header/Header";
 import SearchBox from "../../components/SearchBox/SearchBox";
 
+import { useSelector } from "react-redux";
+import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
+import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
+import { SEMESTER_NAME } from "../../constants/semesterName";
+import { selectAllComment } from "../../features/comments/commentSlice";
+
 import "./CommentPage.scss";
+import LearningTypeDropDown from "../../components/LearningTypeDropDown/LearningTypeDropDown";
 
 const data = [
 	{
@@ -24,10 +31,23 @@ const data = [
 
 export default function CommentPage() {
 	const [keyword, setKeyword] = useState("");
+	const [displayType, setDisplayType] = useState(0);
+	const [semester, setSemester] = useState(SEMESTER_NAME[0]);
+	const [learningType, setLearningType] = useState();
+
+	const comments = useSelector(selectAllComment);
 
 	return (
 		<div className="comment-page">
 			<Header title={"Tìm kiếm bình luận"} />
+			<DisplayTypeInput setDisplayType={setDisplayType} />
+			<div className="dropdown">
+				<SemesterDropDown year={semester} onChange={setSemester} />
+				<LearningTypeDropDown
+					type={learningType}
+					onChange={setLearningType}
+				/>
+			</div>
 			<SearchBox
 				placeholder={"Nhập từ khóa cần tìm kiếm..."}
 				onSearch={setKeyword}

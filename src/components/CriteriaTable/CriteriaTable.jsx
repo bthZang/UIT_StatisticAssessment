@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import {
 	selectStaffAssessmentData,
 	selectStaffCriteria,
-} from "../../features/staff/staffSlice";
+} from "../../features/assessment/assessmentSlice";
 import { CRITERIA_NAME } from "../../constants/criteriaName";
 
 const criteriaData = [

@@ -3,6 +3,10 @@
 	display: grid;
 	gap: 40px;
 
+	.dropdown {
+		display: flex;
+		gap: 80px;
+	}
 
 	.comment-box {
 		display: grid;

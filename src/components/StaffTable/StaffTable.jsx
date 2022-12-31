@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectStaffAssessmentData } from "../../features/staff/staffSlice";
+import { selectStaffAssessmentData } from "../../features/assessment/assessmentSlice";
 import SearchBox from "../SearchBox/SearchBox";
 
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ export default function StaffTable({ semester }) {
 			<div className="table">
 				<div className="row header">
 					<p className="stt">STT</p>
-					<p className="teacher">Tên</p>
+					<p className="teacher">Tên giảng viên</p>
 					<p className="mscb">MSCB</p>
 					<p className="major">Khoa/Bộ môn</p>
 					<p className="type">Chương trình</p>
