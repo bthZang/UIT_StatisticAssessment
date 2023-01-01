@@ -52,11 +52,17 @@
 					border: 0.5px solid var(--gray);
 					border-radius: 6px;
 					font-weight: 500;
+					cursor: pointer;
+					transition: 0.1s;
 
 					span {
                   padding: 0 1px;
 						color: white;
 						background-color: var(--primary);
+					}
+
+					&:hover {
+						background-color: rgb(216, 216, 216);
 					}
 				}
 			}

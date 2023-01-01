@@ -61,19 +61,29 @@ export const selectComment =
 				semesters.some((semester) => key.includes(semester))
 			)
 		);
+		// console.log({ commentsFilteredBySemester });
 		const commentsFilteredByYear = new Map(
 			Array.from(commentsFilteredBySemester.entries()).filter(
 				([key, value]) => years.some((year) => key.includes(year))
 			)
 		);
+		// console.log({ commentsFilteredByYear });
 		const commentsFilteredByType = new Map(
 			Array.from(commentsFilteredByYear.entries()).filter(([key, value]) =>
 				learningTypes.some((type) => key.includes(type))
 			)
 		);
+		// console.log({ commentsFilteredByType });
 		const filteredComments = Array.from(
-			commentsFilteredByType.values()
-		).reduce((list, value) => [...list, ...value], []);
+			commentsFilteredByType.entries()
+		).reduce(
+			(list, [key, value]) => [
+				...list,
+				...value.map((v) => ({ ...v, category: key })),
+			],
+			[]
+		);
+		// console.log({ filteredComments });
 
 		const commentList = filteredComments.reduce((list, value) => {
 			const commentArray = [
@@ -81,6 +91,7 @@ export const selectComment =
 					? value.positive.map((cmt) => ({
 							originID: value.stt,
 							content: cmt,
+							category: value.category,
 							attitude: ATTITUDE.POSITIVE,
 					  }))
 					: []),
@@ -88,6 +99,7 @@ export const selectComment =
 					? value.negative.map((cmt) => ({
 							originID: value.stt,
 							content: cmt,
+							category: value.category,
 							attitude: ATTITUDE.NEGATIVE,
 					  }))
 					: []),
@@ -97,14 +109,9 @@ export const selectComment =
 			return [...list, ...commentArray];
 		}, []);
 
-		return commentList;
-		// if (attitude.length === 0) return comments;
-		// const commentsFilteredByAttitude = comments.filter((comment) => {
-		// 	if (attitude.includes(ATTITUDE.POSITIVE) && comment.positive)
-		// 		return true;
-		// 	if (attitude.includes(ATTITUDE.NEGATIVE) && comment.negative)
-		// 		return true;
-		// });
+		return commentList.filter((comment) =>
+			attitudes.some((attitude) => attitude === comment.attitude)
+		);
 	};
 
 export default commentSlice.reducer;

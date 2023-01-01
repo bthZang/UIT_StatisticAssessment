@@ -14,30 +14,18 @@ import {
 } from "../../constants/selectName";
 import { selectComment } from "../../features/comments/commentSlice";
 
-import "./CommentPage.scss";
-import LearningTypeDropDown from "../../components/LearningTypeDropDown/LearningTypeDropDown";
 import AttitudeDropDown from "../../components/AttitudeDropDown/AttitudeDropDown";
+import LearningTypeDropDown from "../../components/LearningTypeDropDown/LearningTypeDropDown";
 import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
-
-const data = [
-	{
-		year: "2021-2022",
-		comments: [
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultricies mi quis hendrerit dolor. Feugiat pretium nibh ipsum consequat nisl vel pretium. In vitae turpis massa sed elementum tempus egestas sed sed. Fermentum dui faucibus in ornare quam viverra orci sagittis eu.",
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultricies mi quis hendrerit dolor.",
-		],
-	},
-	{
-		year: "2020-2021",
-		comments: [
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultricies mi quis hendrerit dolor. Feugiat pretium nibh ipsum consequat nisl vel pretium. In vitae turpis massa sed elementum tempus egestas sed sed. Fermentum dui faucibus in ornare quam viverra orci sagittis eu.",
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultricies mi quis hendrerit dolor.",
-		],
-	},
-];
+import useInfiniteScroll from "../../hooks/useInfiniteScroll";
+import "./CommentPage.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function CommentPage() {
+	const navigate = useNavigate();
+
 	const [keyword, setKeyword] = useState("");
+	const [index, setIndex] = useState(0);
 	const [displayType, setDisplayType] = useState(0);
 	const [semester, setSemester] = useState([SEMESTER_NAME[0]]);
 	const [year, setYear] = useState([YEAR_NAME[0]]);
@@ -50,7 +38,12 @@ export default function CommentPage() {
 	const comments = useSelector(
 		selectComment(semester, year, learningType, attitude)
 	);
-	console.log({ comments });
+
+	useInfiniteScroll(() => setIndex(index + 1));
+
+	function handleClickComment() {
+		navigate("/comment/detail/");
+	}
 
 	return (
 		<div className="comment-page">
@@ -65,7 +58,7 @@ export default function CommentPage() {
 			</div>
 			<div className="dropdown">
 				<SemesterDropDown semester={semester} onChange={setSemester} />
-				<AttitudeDropDown attitue={attitude} onChange={setAttitude} />
+				<AttitudeDropDown attitude={attitude} onChange={setAttitude} />
 			</div>
 			<SearchBox
 				placeholder={"Nhập từ khóa cần tìm kiếm..."}
@@ -74,12 +67,12 @@ export default function CommentPage() {
 			<div className="comment-box">
 				<div className="comment-by-year">
 					<div className="comment-groups">
-						{comments.map((comment) =>
+						{comments.slice(0, index * 10).map((comment, index) =>
 							comment.content?.includes(keyword) ? (
-								<p>
+								<p key={index} onClick={handleClickComment}>
 									{keyword
 										? comment.content
-												.split(new RegExp(`(${keyword})`, "g"))
+												.split(new RegExp(`(${keyword})`, "gi"))
 												.map((v) =>
 													v === keyword ? (
 														<span>{keyword}</span>
