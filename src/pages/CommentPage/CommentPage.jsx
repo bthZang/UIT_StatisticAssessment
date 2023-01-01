@@ -5,12 +5,19 @@ import SearchBox from "../../components/SearchBox/SearchBox";
 
 import { useSelector } from "react-redux";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
-import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
-import { SEMESTER_NAME } from "../../constants/semesterName";
-import { selectAllComment } from "../../features/comments/commentSlice";
+import YearDropDown from "../../components/YearDropDown/YearDropDown";
+import {
+	ATTITUDE,
+	LEARNING_TYPE_NAME,
+	SEMESTER_NAME,
+	YEAR_NAME,
+} from "../../constants/selectName";
+import { selectComment } from "../../features/comments/commentSlice";
 
 import "./CommentPage.scss";
 import LearningTypeDropDown from "../../components/LearningTypeDropDown/LearningTypeDropDown";
+import AttitudeDropDown from "../../components/AttitudeDropDown/AttitudeDropDown";
+import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
 
 const data = [
 	{
@@ -32,57 +39,62 @@ const data = [
 export default function CommentPage() {
 	const [keyword, setKeyword] = useState("");
 	const [displayType, setDisplayType] = useState(0);
-	const [semester, setSemester] = useState(SEMESTER_NAME[0]);
-	const [learningType, setLearningType] = useState();
+	const [semester, setSemester] = useState([SEMESTER_NAME[0]]);
+	const [year, setYear] = useState([YEAR_NAME[0]]);
+	const [learningType, setLearningType] = useState([LEARNING_TYPE_NAME[0]]);
+	const [attitude, setAttitude] = useState([
+		ATTITUDE.POSITIVE,
+		ATTITUDE.NEGATIVE,
+	]);
 
-	const comments = useSelector(selectAllComment);
+	const comments = useSelector(
+		selectComment(semester, year, learningType, attitude)
+	);
+	console.log({ comments });
 
 	return (
 		<div className="comment-page">
 			<Header title={"Tìm kiếm bình luận"} />
 			<DisplayTypeInput setDisplayType={setDisplayType} />
 			<div className="dropdown">
-				<SemesterDropDown year={semester} onChange={setSemester} />
+				<YearDropDown year={year} onChange={setYear} />
 				<LearningTypeDropDown
 					type={learningType}
 					onChange={setLearningType}
 				/>
+			</div>
+			<div className="dropdown">
+				<SemesterDropDown semester={semester} onChange={setSemester} />
+				<AttitudeDropDown attitue={attitude} onChange={setAttitude} />
 			</div>
 			<SearchBox
 				placeholder={"Nhập từ khóa cần tìm kiếm..."}
 				onSearch={setKeyword}
 			/>
 			<div className="comment-box">
-				{data.map(({ year, comments }) => (
-					<div className="comment-by-year">
-						<div className="year-box">
-							<div></div>
-							<p>Năm học {year}</p>
-						</div>
-						<div className="comment-groups">
-							{comments.map(
-								(comment) =>
-									comment.includes(keyword) && (
-										<p>
-											{keyword
-												? comment
-														.split(
-															new RegExp(`(${keyword})`, "g")
-														)
-														.map((v) =>
-															v === keyword ? (
-																<span>{keyword}</span>
-															) : (
-																v
-															)
-														)
-												: comment}
-										</p>
-									)
-							)}
-						</div>
+				<div className="comment-by-year">
+					<div className="comment-groups">
+						{comments.map((comment) =>
+							comment.content?.includes(keyword) ? (
+								<p>
+									{keyword
+										? comment.content
+												.split(new RegExp(`(${keyword})`, "g"))
+												.map((v) =>
+													v === keyword ? (
+														<span>{keyword}</span>
+													) : (
+														v
+													)
+												)
+										: comment.content}
+								</p>
+							) : (
+								""
+							)
+						)}
 					</div>
-				))}
+				</div>
 			</div>
 		</div>
 	);

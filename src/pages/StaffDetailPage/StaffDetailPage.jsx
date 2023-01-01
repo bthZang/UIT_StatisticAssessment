@@ -7,8 +7,8 @@ import Header from "../../components/Header/Header";
 import StaffRadarChart from "../../components/StaffRadarChart/StaffRadarChart";
 
 import "./StaffDetailPage.scss";
-import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
-import { SEMESTER_NAME } from "../../constants/semesterName";
+import YearDropDown from "../../components/YearDropDown/YearDropDown";
+import { SEMESTER_NAME } from "../../constants/selectName";
 import {
 	selectStaffCriteria,
 	selectStaffInfo,
@@ -44,7 +44,7 @@ export default function StaffDetailPage() {
 		<div className="staff-detail-page">
 			<Header title={`Mã cán bộ ${id}`} />
 			<DisplayTypeInput setChoice={setDisplayType} />
-			<SemesterDropDown semester={semester} onChange={setSemester} />
+			<YearDropDown semester={semester} onChange={setSemester} />
 			{displayType === 1 ? (
 				<StaffRadarChart data={staffData} />
 			) : (

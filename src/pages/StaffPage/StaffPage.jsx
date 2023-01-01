@@ -15,9 +15,9 @@ import Paper from "@mui/material/Paper";
 import "./StaffPage.scss";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
 import StaffHistogramChart from "../../components/StaffHistogramChart/StaffHistogramChart";
-import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
+import YearDropDown from "../../components/YearDropDown/YearDropDown";
 import StaffTable from "../../components/StaffTable/StaffTable";
-import { SEMESTER_NAME } from "../../constants/semesterName";
+import { SEMESTER_NAME } from "../../constants/selectName";
 
 export default function StaffPage() {
 	const navigate = useNavigate();
@@ -30,7 +30,7 @@ export default function StaffPage() {
 		<div className="staff-page">
 			<Header title={"Thống kê cán bộ"} />
 			<DisplayTypeInput setChoice={setDisplayType} />
-			<SemesterDropDown year={semester} onChange={setSemester} />
+			<YearDropDown year={semester} onChange={setSemester} />
 			{displayType === 1 ? (
 				<StaffHistogramChart semester={semester} />
 			) : (
