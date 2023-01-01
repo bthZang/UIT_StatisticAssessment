@@ -4,6 +4,12 @@
 	display: grid;
 	gap: 45px;
 
+	.dropdown {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 80px;
+	}
+
 	table {
 		p {
 			font-weight: 500;
@@ -19,7 +25,7 @@
 
 	.link {
 		cursor: pointer;
-      color: var(--primary);
+		color: var(--primary);
 
 		&:hover {
 			text-decoration: underline;

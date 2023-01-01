@@ -16,7 +16,15 @@ import "./StaffPage.scss";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
 import StaffHistogramChart from "../../components/StaffHistogramChart/StaffHistogramChart";
 import StaffTable from "../../components/StaffTable/StaffTable";
-import { SEMESTER_NAME, ATTITUDE } from "../../constants/selectName";
+import {
+	SEMESTER_NAME,
+	ATTITUDE,
+	YEAR_NAME,
+	SEMESTER_YEAR_NAME,
+} from "../../constants/selectName";
+import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
+import YearDropDown from "../../components/YearDropDown/YearDropDown";
+import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
 
 export default function StaffPage() {
 	const navigate = useNavigate();
@@ -25,21 +33,22 @@ export default function StaffPage() {
 
 	const [semester, setSemester] = useState([SEMESTER_NAME[0]]);
 	const [year, setYear] = useState([YEAR_NAME[0]]);
-	const [learningType, setLearningType] = useState([LEARNING_TYPE_NAME[0]]);
-	const [attitude, setAttitude] = useState([
-		ATTITUDE.POSITIVE,
-		ATTITUDE.NEGATIVE,
-	]);
+	const [semesterYear, setSemesterYear] = useState(SEMESTER_YEAR_NAME[0]);
 
 	return (
 		<div className="staff-page">
 			<Header title={"Thống kê cán bộ"} />
 			<DisplayTypeInput setChoice={setDisplayType} />
-			<YearDropDown year={year} onChange={setYear} />
+			<SingleDropDown
+				title={"kỳ"}
+				dataset={SEMESTER_YEAR_NAME}
+				selected={semesterYear}
+				onChange={setSemesterYear}
+			/>
 			{displayType === 1 ? (
-				<StaffHistogramChart semester={semester} />
+				<StaffHistogramChart semester={semesterYear} />
 			) : (
-				<StaffTable semester={semester} />
+				<StaffTable semester={semesterYear} />
 			)}
 		</div>
 	);
