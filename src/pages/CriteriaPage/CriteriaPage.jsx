@@ -98,7 +98,7 @@ export default function CriteriaPage() {
 	const [displayType, setDisplayType] = useState(0);
 
 	const [semesterYear, setSemesterYear] = useState(SEMESTER_YEAR_NAME[0]);
-	const [type, setType] = useState([LEARNING_TYPE_NAME[0]]);
+	const [type, setType] = useState(LEARNING_TYPE_NAME[0]);
 
 	const criteriaData = useSelector(selectCriteria(type, semesterYear));
 	console.log({ criteriaData });
@@ -114,7 +114,12 @@ export default function CriteriaPage() {
 					selected={semesterYear}
 					onChange={setSemesterYear}
 				/>
-				<LearningTypeDropDown type={type} onChange={setType} />
+				<SingleDropDown
+					title={"hình thức dạy"}
+					dataset={LEARNING_TYPE_NAME}
+					selected={type}
+					onChange={setType}
+				/>
 			</div>
 			{displayType == 0 ? (
 				<CriteriaTable data={criteriaData} />

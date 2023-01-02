@@ -5,8 +5,8 @@
 	gap: 45px;
 
 	.dropdown {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
+		display: flex;
+		// grid-template-columns: 1fr 1fr;
 		gap: 80px;
 	}
 

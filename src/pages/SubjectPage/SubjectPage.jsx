@@ -1,211 +1,59 @@
-import { useState } from "react";
-
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import { useEffect, useState } from "react";
 
 import Header from "../../components/Header/Header";
 import SearchBox from "../../components/SearchBox/SearchBox";
-import YearDropDown from "../../components/YearDropDown/YearDropDown";
 
-import "./SubjectPage.scss";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
+import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
 import SubjectHistogramChart from "../../components/SubjectHistogramChart/SubjectHistogramChart";
-
-const data = [
-	{
-		name: "Lập trình trực quan",
-		classes: [
-			{
-				classID: "IT008.N11.PMCL",
-				staff: 80200,
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-				point: 3.5,
-			},
-			{
-				classID: "IT008.N13.PMCL",
-				staff: 80200,
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-				point: 3.7,
-			},
-		],
-	},
-	{
-		name: "Kỹ năng nghề nghiệp",
-		classes: [
-			{
-				classID: "SS004.N11.PMCL",
-				staff: 80205,
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-				point: 3.8,
-			},
-			{
-				classID: "SS004.N13.PMCL",
-				staff: 80204,
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-				point: 3.7,
-			},
-		],
-	},
-	{
-		name: "Lập trình hướng đối tượng",
-		classes: [
-			{
-				classID: "IT003.N11.PMCL",
-				staff: 80205,
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-				point: 3.8,
-			},
-			{
-				classID: "IT003.N13.PMCL",
-				staff: 80204,
-				comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-				point: 3.5,
-			},
-		],
-	},
-];
+import SubjectTable from "../../components/SubjectTable/SubjectTable";
+import { SEMESTER_YEAR_NAME } from "../../constants/selectName";
+import { selectSubjectAssessmentData } from "../../features/assessment/assessmentSlice";
+import "./SubjectPage.scss";
+import DropDown from "../../components/DropDown/DropDown";
 
 export default function SubjectPage() {
 	const navigate = useNavigate();
 
 	const [displayType, setDisplayType] = useState(0);
+	const [semesterYear, setSemesterYear] = useState(SEMESTER_YEAR_NAME[0]);
+	const [subject, setSubject] = useState([]);
+
+	const data = useSelector(selectSubjectAssessmentData(semesterYear));
+
+	useEffect(() => {
+		setSubject(data.map((v) => v[0]));
+	}, [data]);
 
 	return (
 		<div className="subject-page">
 			<Header title="Thống kê theo môn" />
 			<DisplayTypeInput setChoice={setDisplayType} />
-			<YearDropDown />
+			<SingleDropDown
+				title="kỳ"
+				selected={semesterYear}
+				dataset={SEMESTER_YEAR_NAME}
+				onChange={setSemesterYear}
+			/>
 			{displayType === 1 ? (
-				<SubjectHistogramChart />
+				<SubjectHistogramChart semester={semesterYear} />
 			) : (
 				<>
-					<SearchBox placeholder="Nhập mã môn học cần tìm..." />
-					<TableContainer component={Paper}>
-						<Table sx={{ minWidth: 650 }} aria-label="simple table">
-							<TableHead>
-								<TableRow>
-									<TableCell
-										sx={{ width: 200 }}
-										align="center"
-										component="th"
-										scope="row"
-									>
-										<p>Tên môn học</p>
-									</TableCell>
-									<TableCell sx={{ width: "200px" }} align="center">
-										<p>Mã lớp</p>
-									</TableCell>
-									<TableCell sx={{ width: "200px" }} align="center">
-										<p>Mã cán bộ</p>
-									</TableCell>
-									<TableCell sx={{ width: "200px" }} align="center">
-										<p>Điểm đánh giá</p>
-									</TableCell>
-									<TableCell style={{ width: "700px" }} align="center">
-										<p>Nhận xét</p>
-									</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{data.map((subject) => (
-									<>
-										<TableRow
-											rowSpan={subject.classes.reduce(
-												(sum, value) => sum + value.comments.length,
-												0
-											)}
-										>
-											<TableCell
-												sx={{ width: 200 }}
-												align="center"
-												component="th"
-												scope="row"
-											>
-												<p
-													className="link"
-													onClick={() =>
-														navigate(`/subject/${subject.name}`)
-													}
-												>
-													{subject.name}
-												</p>
-											</TableCell>
-											<TableCell colSpan={4} sx={{ padding: 0 }}>
-												<Table sx={{ width: "100%" }}>
-													<TableBody>
-														{subject.classes.map((classInfo) => (
-															<TableRow
-																rowSpan={
-																	classInfo.comments.length
-																}
-																align="center"
-																component="tr"
-															>
-																<TableCell
-																	sx={{ width: "200px" }}
-																	align="center"
-																>
-																	<p
-																		className="link"
-																		onClick={() =>
-																			navigate(
-																				`/class/${classInfo.classID}`
-																			)
-																		}
-																	>
-																		{classInfo.classID}
-																	</p>
-																</TableCell>
-																<TableCell
-																	sx={{ width: "200px" }}
-																	align="center"
-																>
-																	<p>{classInfo.staff}</p>
-																</TableCell>
-																<TableCell
-																	sx={{ width: "200px" }}
-																	align="center"
-																>
-																	<p>{classInfo.point}</p>
-																</TableCell>
-																<TableCell
-																	sx={{
-																		padding: 0,
-																		width: "700px",
-																	}}
-																>
-																	{classInfo.comments.map(
-																		(comment) => (
-																			<TableRow>
-																				<TableCell
-																					style={{
-																						width: "700px",
-																					}}
-																					align="center"
-																				>
-																					<p>{comment}</p>
-																				</TableCell>
-																			</TableRow>
-																		)
-																	)}
-																</TableCell>
-															</TableRow>
-														))}
-													</TableBody>
-												</Table>
-											</TableCell>
-										</TableRow>
-									</>
-								))}
-							</TableBody>
-						</Table>
-					</TableContainer>
+					<DropDown
+						titleWidth={"max-content"}
+						width={500}
+						selected={subject}
+						title={"môn học"}
+						dataset={data?.map((v) => v[0])}
+						onChange={setSubject}
+					/>
+					<SubjectTable
+						semester={semesterYear}
+						data={data}
+						subject={data.map((v) => v[0])}
+					/>
 				</>
 			)}
 		</div>

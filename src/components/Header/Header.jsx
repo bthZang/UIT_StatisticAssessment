@@ -11,7 +11,7 @@ export default function Header({ title }) {
 		<div className="header" style={{  }}>
 			<div className="go-back" onClick={() => navigate(-1)}>
 				<img src={GO_BACK_ICON} alt="" />
-				<p>Quay lại</p>
+				<p>Về trang chủ</p>
 			</div>
 			<div className="title">{title}</div>
 		</div>

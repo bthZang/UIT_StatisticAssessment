@@ -34,33 +34,21 @@ export const options = {
 			text: "Biểu đồ điểm đánh giá theo tiêu chí",
 		},
 	},
+	scales: {
+		y: {
+			beginAtZero: false,
+		},
+	},
 };
 
 export default function CriteriaChart({ data }) {
 	const chartData = {
-		labels: Array(data.length)
-			.fill("")
-			.map((_, index) => `Tiêu chí ${index + 1}`),
+		labels: data.map((v, index) => `Tiêu chí ${index + 1}`),
 		datasets: [
 			{
 				label: "Tỉ lệ hài lòng 2018 -2019 (%)",
-				data: data.map((v) => v.point["2018-2019"]),
+				data: data.map((v) => v.point),
 				backgroundColor: "#bdb2ff",
-			},
-			{
-				label: "Tỉ lệ hài lòng 2019-2020 (%)",
-				data: data.map((v) => v.point["2019-2020"]),
-				backgroundColor: "#a0c4ff",
-			},
-			{
-				label: "Tỉ lệ hài lòng 2020-2021 (%)",
-				data: data.map((v) => v.point["2020-2021"]),
-				backgroundColor: "#ffd6a5",
-			},
-			{
-				label: "Tỉ lệ hài lòng 2021-2022 (%)",
-				data: data.map((v) => v.point["2021-2022"]),
-				backgroundColor: "#ffadad",
 			},
 		],
 	};

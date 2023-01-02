@@ -10,6 +10,7 @@ export default function SingleDropDown({
 	selected,
 	title,
 	dataset,
+	titleWidth = "max-content",
 	width = 200,
 	onChange = () => {},
 }) {
@@ -20,7 +21,7 @@ export default function SingleDropDown({
 
 	return (
 		<div className="single-drop-down">
-			<p style={{ width: 100 }}>Chọn {title}: </p>
+			<p style={{ width: titleWidth }}>Chọn {title}: </p>
 			<Box sx={{ width, backgroundColor: "white" }}>
 				<FormControl fullWidth>
 					<InputLabel id="year-select-label">Chọn {title}</InputLabel>

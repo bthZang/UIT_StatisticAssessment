@@ -4,26 +4,26 @@ import { selectStaffAssessmentData } from "../../features/assessment/assessmentS
 import SearchBox from "../SearchBox/SearchBox";
 
 import { useNavigate } from "react-router-dom";
-import "./StaffTable.scss";
+import "./SubjectTable.scss";
 
-export default function StaffTable({ semester, data, staff }) {
+export default function SubjectTable({ semester, data, subject }) {
 	const navigate = useNavigate();
 	const [keyword, setKeyword] = useState("");
 
 	return (
-		<div className="container">
+		<div className="subject-container">
 			<SearchBox
-				placeholder={"Nhập mã cán bộ cần tìm..."}
+				placeholder={"Nhập môn học/mã môn học cần tìm..."}
 				onChange={setKeyword}
 			/>
 			<div className="table">
 				<div className="row header">
-					<p className="teacher">Tên giảng viên</p>
-					<p className="mscb">MSCB</p>
+					<p className="subject">Môn học</p>
+					<p className="major">Khoa/Bộ môn</p>
 					<div className="other-field">
-						<p className="major">Khoa/Bộ môn</p>
+						<p className="teacher">Tên giảng viên</p>
+						<p className="mscb">MSCB</p>
 						<p className="type">Chương trình</p>
-						<p className="subject">Môn</p>
 						<p className="class">Lớp</p>
 						{Array(19)
 							.fill("")
@@ -37,24 +37,28 @@ export default function StaffTable({ semester, data, staff }) {
 				</div>
 				<div className="table-body">
 					{data
-						?.filter(([staffName]) => staff.some((v) => v === staffName))
-						?.map?.(([staffName, classes]) => (
-							<div key={`${staffName} ${semester}`} className="row">
+						?.filter(([staffName]) =>
+							subject.some((v) => v === staffName)
+						)
+						?.map?.(([subjectName, classes]) => (
+							<div key={`${subjectName} ${semester}`} className="row">
 								<p
-									className="teacher link"
-									onClick={() => navigate(`/staff/${staffName}`)}
+									className="subject link"
+									onClick={() => navigate(`/staff/${subjectName}`)}
 								>
-									{staffName}
+									{subjectName}
 								</p>
 								<p
-									className="mscb link"
+									className="major link"
 									onClick={() => navigate(`/staff/${classes[0].MSCB}`)}
 								>
-									{classes[0].MSCB}
+									{classes[0].MAJOR}
 								</p>
 								<div className="sub-row">
 									{classes.map(
 										({
+											TEACHER,
+											MSCB,
 											MAJOR,
 											TYPE,
 											SUBJECT,
@@ -65,19 +69,19 @@ export default function StaffTable({ semester, data, staff }) {
 											...otherPoint
 										}) => (
 											<div
-												key={`${CLASS} ${semester}`}
+												key={`${CLASS} ${TEACHER} ${semester}`}
 												className={``}
 											>
-												<p className="major">{MAJOR}</p>
-												<p className="type">{TYPE}</p>
 												<p
-													className="subject link"
+													className="teacher link"
 													onClick={() =>
 														navigate(`/subject/${SUBJECT}`)
 													}
 												>
-													{SUBJECT}
+													{TEACHER}
 												</p>
+												<p className="mscb">{MSCB}</p>
+												<p className="type">{TYPE}</p>
 												<p
 													className="class link"
 													onClick={() =>

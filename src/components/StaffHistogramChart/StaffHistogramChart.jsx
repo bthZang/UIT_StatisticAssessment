@@ -63,6 +63,7 @@ export default function StaffHistogramChart({ semester }) {
 	const navigate = useNavigate();
 
 	const { labels, data } = useSelector(selectStaffHistogramData(semester));
+	console.log({ data });
 
 	const chartData = {
 		labels,

@@ -25,16 +25,41 @@ export const selectStaffAssessmentData = (semester) => (state) => {
 	const data = state.assessment.data[semester];
 	const dataGroupByStaff = new Map();
 	data.forEach(({ TEACHER, ...other }) => {
-		dataGroupByStaff.set(TEACHER, [...dataGroupByStaff.get(TEACHER), other]);
+		dataGroupByStaff.set(TEACHER, [
+			...(dataGroupByStaff.get(TEACHER) || []),
+			other,
+		]);
 	});
-	return dataGroupByStaff;
+	return Array.from(dataGroupByStaff.entries());
+};
+
+export const selectSubjectAssessmentData = (semester) => (state) => {
+	const data = state.assessment.data[semester];
+	const dataGroupBySubject = new Map();
+	data.forEach(({ SUBJECT, ...other }) => {
+		dataGroupBySubject.set(SUBJECT, [
+			...(dataGroupBySubject.get(SUBJECT) || []),
+			other,
+		]);
+	});
+	return Array.from(dataGroupBySubject.entries());
 };
 
 export const selectStaffHistogramData = (semester) => (state) => {
-	const data = selectStaffAssessmentData(semester)(state);
+	const data = selectStaffAssessmentData(semester)(state).reduce(
+		(list, [staffName, other]) => {
+			list.set(
+				staffName,
+				other.reduce((avg, doc) => avg + doc.AVG, 0) / other.length
+			);
+
+			return new Map(list);
+		},
+		new Map()
+	);
 	const pointHistogram = new Map();
 
-	data.forEach(({ AVG }) =>
+	Array.from(data.values()).forEach((AVG) =>
 		pointHistogram.set(
 			parseInt(AVG * 10) / 10,
 			(pointHistogram.get(parseInt(AVG * 10) / 10) || 0) + 1
@@ -43,7 +68,38 @@ export const selectStaffHistogramData = (semester) => (state) => {
 
 	return {
 		labels: Array.from(pointHistogram.keys()).sort(),
-		data: Array.from(pointHistogram.entries()).sort((a, b) => a[0] - b[0]),
+		data: Array.from(pointHistogram.entries())
+			.sort((a, b) => a[0] - b[0])
+			.map((v) => v[1]),
+	};
+};
+
+export const selectSubjectHistogramData = (semester) => (state) => {
+	const data = selectSubjectAssessmentData(semester)(state).reduce(
+		(list, [subjectName, other]) => {
+			list.set(
+				subjectName,
+				other.reduce((avg, doc) => avg + doc.AVG, 0) / other.length
+			);
+
+			return new Map(list);
+		},
+		new Map()
+	);
+	const pointHistogram = new Map();
+
+	Array.from(data.values()).forEach((AVG) =>
+		pointHistogram.set(
+			parseInt(AVG * 10) / 10,
+			(pointHistogram.get(parseInt(AVG * 10) / 10) || 0) + 1
+		)
+	);
+
+	return {
+		labels: Array.from(pointHistogram.keys()).sort(),
+		data: Array.from(pointHistogram.entries())
+			.sort((a, b) => a[0] - b[0])
+			.map((v) => v[1]),
 	};
 };
 
