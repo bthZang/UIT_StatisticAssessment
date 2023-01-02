@@ -25,30 +25,40 @@ export default function SubjectPage() {
 
 	useEffect(() => {
 		setSubject(data.map((v) => v[0]));
-	}, [data]);
+	}, []);
 
 	return (
 		<div className="subject-page">
 			<Header title="Thống kê theo môn" />
 			<DisplayTypeInput setChoice={setDisplayType} />
-			<SingleDropDown
-				title="kỳ"
-				selected={semesterYear}
-				dataset={SEMESTER_YEAR_NAME}
-				onChange={setSemesterYear}
-			/>
 			{displayType === 1 ? (
-				<SubjectHistogramChart semester={semesterYear} />
+				<>
+					<SingleDropDown
+						title="kỳ"
+						selected={semesterYear}
+						dataset={SEMESTER_YEAR_NAME}
+						onChange={setSemesterYear}
+					/>
+					<SubjectHistogramChart semester={semesterYear} />
+				</>
 			) : (
 				<>
-					<DropDown
-						titleWidth={"max-content"}
-						width={500}
-						selected={subject}
-						title={"môn học"}
-						dataset={data?.map((v) => v[0])}
-						onChange={setSubject}
-					/>
+					<div className="dropdown">
+						<SingleDropDown
+							title="kỳ"
+							selected={semesterYear}
+							dataset={SEMESTER_YEAR_NAME}
+							onChange={setSemesterYear}
+						/>
+						<DropDown
+							titleWidth={"max-content"}
+							width={500}
+							selected={subject}
+							title={"môn học"}
+							dataset={data?.map((v) => v[0])}
+							onChange={setSubject}
+						/>
+					</div>
 					<SubjectTable
 						semester={semesterYear}
 						data={data}

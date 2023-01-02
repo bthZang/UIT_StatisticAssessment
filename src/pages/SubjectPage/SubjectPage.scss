@@ -4,6 +4,11 @@
 	display: grid;
 	gap: 45px;
 
+	.dropdown {
+		display: flex;
+		gap: 80px;
+	}
+
 	table {
 		p {
 			font-weight: 500;

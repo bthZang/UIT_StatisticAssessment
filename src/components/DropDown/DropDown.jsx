@@ -62,7 +62,7 @@ export default function DropDown({
 											<Chip key={value} label={value} />
 										))}
 										{selected.length > 5 ? (
-											<span> và {selected.length - 5} gv khác</span>
+											<span> và {selected.length - 5} mục khác</span>
 										) : (
 											""
 										)}
