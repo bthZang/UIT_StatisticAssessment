@@ -21,8 +21,14 @@ export const assessmentSlice = createSlice({
 
 export const { loadAssessmentData } = assessmentSlice.actions;
 
-export const selectStaffAssessmentData = (semester) => (state) =>
-	state.assessment.data[semester];
+export const selectStaffAssessmentData = (semester) => (state) => {
+	const data = state.assessment.data[semester];
+	const dataGroupByStaff = new Map();
+	data.forEach(({ TEACHER, ...other }) => {
+		dataGroupByStaff.set(TEACHER, [...dataGroupByStaff.get(TEACHER), other]);
+	});
+	return dataGroupByStaff;
+};
 
 export const selectStaffHistogramData = (semester) => (state) => {
 	const data = selectStaffAssessmentData(semester)(state);

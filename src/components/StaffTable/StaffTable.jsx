@@ -11,6 +11,7 @@ export default function StaffTable({ semester }) {
 	const [keyword, setKeyword] = useState("");
 
 	const data = useSelector(selectStaffAssessmentData(semester));
+	console.log({ data });
 
 	return (
 		<div className="container">
@@ -20,7 +21,6 @@ export default function StaffTable({ semester }) {
 			/>
 			<div className="table">
 				<div className="row header">
-					<p className="stt">STT</p>
 					<p className="teacher">Tên giảng viên</p>
 					<p className="mscb">MSCB</p>
 					<p className="major">Khoa/Bộ môn</p>
@@ -37,7 +37,7 @@ export default function StaffTable({ semester }) {
 					<p className="average">Điểm trung bình</p>
 				</div>
 				<div className="table-body">
-					{data?.map?.(
+					{/* {data?.map?.(
 						({
 							STT,
 							TEACHER,
@@ -51,8 +51,7 @@ export default function StaffTable({ semester }) {
 							AVG,
 							...otherPoint
 						}) => (
-							<div key={STT} className={`row ${STT % 2 ? "even" : ""}`}>
-								<p className="stt">{STT}</p>
+							<div key={STT} className={`row`}>
 								<p
 									className="teacher link"
 									onClick={() => navigate(`/staff/${MSCB}`)}
@@ -87,7 +86,7 @@ export default function StaffTable({ semester }) {
 								<p className="average">{AVG}</p>
 							</div>
 						)
-					)}
+					)} */}
 				</div>
 			</div>
 		</div>

@@ -16,6 +16,7 @@ import SubjectPage from "./pages/SubjectPage/SubjectPage";
 import { useEffect } from "react";
 import { loadAssessmentData } from "./features/assessment/assessmentSlice";
 import { loadCommentData } from "./features/comments/commentSlice";
+import { loadCriteriaData } from "./features/criteria/criteriaSlice";
 
 const router = createHashRouter([
 	{
@@ -66,6 +67,7 @@ function App() {
 	useEffect(() => {
 		dispatch(loadAssessmentData());
 		dispatch(loadCommentData());
+		dispatch(loadCriteriaData());
 	}, []);
 
 	return (

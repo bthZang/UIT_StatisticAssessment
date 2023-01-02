@@ -31,8 +31,6 @@ export default function StaffPage() {
 
 	const [displayType, setDisplayType] = useState(0);
 
-	const [semester, setSemester] = useState([SEMESTER_NAME[0]]);
-	const [year, setYear] = useState([YEAR_NAME[0]]);
 	const [semesterYear, setSemesterYear] = useState(SEMESTER_YEAR_NAME[0]);
 
 	return (

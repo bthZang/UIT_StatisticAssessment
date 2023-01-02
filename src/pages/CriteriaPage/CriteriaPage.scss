@@ -1,9 +1,14 @@
 .criteria-page {
 	width: 100%;
-   overflow-x: hidden;
+	overflow-x: hidden;
 	padding: 65px;
 
 	display: flex;
 	flex-direction: column;
 	gap: 25px;
+
+	.dropdown {
+		display: flex;
+		gap: 80px;
+	}
 }

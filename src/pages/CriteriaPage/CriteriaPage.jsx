@@ -6,6 +6,18 @@ import CriteriaTable from "../../components/CriteriaTable/CriteriaTable";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
 import Header from "../../components/Header/Header";
 import "./CriteriaPage.scss";
+import { useSelector } from "react-redux";
+import { selectCriteria } from "../../features/criteria/criteriaSlice";
+import {
+	LEARNING_TYPE_NAME,
+	SEMESTER_NAME,
+	SEMESTER_YEAR_NAME,
+	YEAR_NAME,
+} from "../../constants/selectName";
+import YearDropDown from "../../components/YearDropDown/YearDropDown";
+import LearningTypeDropDown from "../../components/LearningTypeDropDown/LearningTypeDropDown";
+import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
+import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
 
 const criteriaData = [
 	{
@@ -85,10 +97,25 @@ const criteriaData = [
 export default function CriteriaPage() {
 	const [displayType, setDisplayType] = useState(0);
 
+	const [semesterYear, setSemesterYear] = useState(SEMESTER_YEAR_NAME[0]);
+	const [type, setType] = useState([LEARNING_TYPE_NAME[0]]);
+
+	const criteriaData = useSelector(selectCriteria(type, semesterYear));
+	console.log({ criteriaData });
+
 	return (
 		<div className="criteria-page">
 			<Header title={"Thống kê theo tiêu chí"} />
 			<DisplayTypeInput setChoice={setDisplayType} />
+			<div className="dropdown">
+				<SingleDropDown
+					title={"kỳ"}
+					dataset={SEMESTER_YEAR_NAME}
+					selected={semesterYear}
+					onChange={setSemesterYear}
+				/>
+				<LearningTypeDropDown type={type} onChange={setType} />
+			</div>
 			{displayType == 0 ? (
 				<CriteriaTable data={criteriaData} />
 			) : (
