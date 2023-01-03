@@ -28,7 +28,8 @@
 				padding: 10px 0;
 			}
 
-			.teacher, .mscb {
+			.teacher,
+			.mscb {
 				flex: 2;
 				display: grid;
 				place-items: center;
@@ -36,6 +37,16 @@
 
 			.mscb {
 				flex: 1;
+			}
+
+			.link {
+				cursor: pointer;
+
+				color: var(--primary);
+
+				&:hover {
+					text-decoration: underline;
+				}
 			}
 
 			.other-field {

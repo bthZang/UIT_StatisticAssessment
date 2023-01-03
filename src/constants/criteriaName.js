@@ -1,4 +1,4 @@
-export const CRITERIA_NAME = [
+export const CRITERIA_NAME_LT = [
 	"Chuẩn đầu ra, yêu cầu và nội dung môn học được giảng viên giới thiệu trong buổi học đầu tiên và thường xuyên nhắc lại trong các buổi học tiếp theo",
 	"Phòng học/thí nghiệm và trang thiết bị đáp ứng yêu cầu giảng dạy và học tập.",
 	"Giáo trình, bài giảng và tài liệu phục vụ môn học được cung cấp đầy đủ và cập nhật trên hệ thống Moodle",
@@ -21,4 +21,36 @@ export const CRITERIA_NAME = [
 	"Kết quả kiểm tra - đánh giá phản ảnh đúng và khách quan năng lực của của Anh/Chị",
 	"Nội dung môn học được Giảng viên truyền tải chuẩn xác, cập nhật và có liên hệ thực tiễn",
 	"Giảng viên sử dụng phương tiện dạy học hợp lý, hiệu quả",
+];
+
+export const CRITERIA_NAME_TH1 = [
+	"Anh/ Chị có đủ thông tin về đề cương/ kế hoạch thực hành",
+	"Đề cương nêu rõ kiến thức, kỹ năng người học cần đạt được sau mỗi bài thực hành",
+	"Trang thiết bị, phòng máy được trang bị tốt, đáp ứng yêu cầu trong quá trình thực hành/ thí nghiệm",
+	"Phòng thí nghiệm, thực hành đảm bảo điều kiện an toàn",
+	"Anh/ Chị được phân chia nhóm một cách hợp lý",
+	"Anh/ Chị được cung cấp tài liệu/ bài tập thực hành đầy đủ",
+	"Tài liệu/ bài tập thực hành trình bày rõ ràng, dễ hiểu, cập nhật",
+	"Thời khoá biểu thực hành phân bổ hợp lý, phù hợp với lý thuyết",
+	"Anh/ Chị được phổ biến về hình thức kiểm tra/ đánh giá kết quả học tập trước khi học",
+	"Giảng viên theo dõi, giám sát quá trình thực hành của Anh/ Chị",
+	"Giảng viên hướng dẫn nội dung, mô tả các bước thực hiện trước khi tiến hành thực hành/ thí nghiệm",
+	"Giảng viên có nhiều kinh nghiệm chuyên môn qua việc hướng dẫn và giải đáp thắc mắc của Anh/ Chị",
+	"Giảng viên đảm bảo và sử dụng thời gian trên lớp hiệu quả",
+	"Anh/ Chị hài lòng với cách trả lời/ giải đáp của giảng viên về bài học",
+	"Giảng viên đánh giá chính xác, công bằng kết quả thực hành của Anh/ Chị",
+	"Hình thức kiểm tra/ đánh giá phù hợp với môn thực hành",
+	"Anh/ Chị nhận được kiến thức, kỹ năng như mục tiêu của môn học",
+	"Anh/ Chị hài lòng với hoạt động giảng dạy thực hành của giảng viên",
+];
+
+export const CRITERIA_NAME_TH2 = [
+	"Giảng viên có gặp sinh viên (tối thiểu 3 buổi học tập trung) theo quy định đã thông báo",
+	"Giảng viên trả lời các câu hỏi của sinh viên một cách nhanh chóng (trong vòng 24 giờ)",
+	"Bài tập, đồ án phù hợp với nội dung của môn học",
+	"Giảng viên cung cấp các tài liệu đầy đủ trong quá trình thực hiện đồ án, bài tập thực hành",
+	"Giảng viên thường xuyên sử dụng moodle, email, forum, hoặc trang web cá nhân để trao đổi với sinh viên về đồ án, bài tập thực hành",
+	"Giảng viên có quy định về thời gian nộp đồ án, bài tập hoặc báo cáo cho sinh viên",
+	"Sinh viên hài lòng với cách hướng dẫn của giảng viên trong việc thực hiện đồ án, bài tập của môn thực hành",
+	"Giảng viên đánh giá chính xác, công bằng kết quả thực hiện đồ án, bài tập thực hành của sinh viên",
 ];

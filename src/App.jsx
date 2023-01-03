@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import { loadAssessmentData } from "./features/assessment/assessmentSlice";
 import { loadCommentData } from "./features/comments/commentSlice";
 import { loadCriteriaData } from "./features/criteria/criteriaSlice";
+import StaffDetailStatisticPage from "./pages/StaffDetailStatisticPage/StaffDetailStatisticPage";
 
 const router = createHashRouter([
 	{
@@ -34,6 +35,10 @@ const router = createHashRouter([
 	{
 		path: "/staff/:id",
 		element: <StaffDetailPage />,
+	},
+	{
+		path: "/staff/detailStatistic/:semester/:point",
+		element: <StaffDetailStatisticPage />,
 	},
 	{
 		path: "/criteria",

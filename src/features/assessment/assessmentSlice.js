@@ -77,6 +77,7 @@ export const selectStaffHistogramData = (semester) => (state) => {
 			(pointHistogram.get(parseInt(AVG * 10) / 10) || 0) + 1
 		)
 	);
+	console.log({ pointHistogram });
 
 	return {
 		labels: Array.from(pointHistogram.keys()).sort(),
@@ -193,6 +194,35 @@ export const selectClassOfStaff = (staffName) => (state) => {
 	});
 	const classArray = Array.from(classes.entries());
 	return classArray;
+};
+
+// Bug !!!
+// So luong trong selectStaffHistogramData khac voi so luong tra ve
+export const selectStaffByPoint = (semester, point) => (state) => {
+	const data = selectStaffAssessmentData(semester)(state).reduce(
+		(list, [staffName, other]) => {
+			list.set(
+				staffName,
+				(
+					other.reduce((avg, doc) => avg + doc.AVG, 0) / other.length
+				).toFixed(1)
+			);
+
+			return new Map(list);
+		},
+		new Map()
+	);
+	const staffs = Array.from(data.entries()).filter(
+		([staffName, thisPoint]) => parseInt(thisPoint * 10) / 10 == point
+	);
+	// console.log({ staffs });
+
+	const staffNames = staffs.map((v) => v[0]);
+	const assessmentData = selectStaffAssessmentData(semester)(state).filter(
+		([staffName]) => staffNames.includes(staffName)
+	);
+	// console.log({ assessmentData });
+	return assessmentData;
 };
 
 export default assessmentSlice.reducer;

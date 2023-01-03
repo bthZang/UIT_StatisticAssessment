@@ -37,7 +37,9 @@ export default function StaffTable({ semester, data, staff }) {
 				</div>
 				<div className="table-body">
 					{data
-						?.filter(([staffName]) => staff.some((v) => v === staffName))
+						?.filter(([staffName]) =>
+							staff ? staff.some((v) => v === staffName) : true
+						)
 						?.filter(([staffName]) =>
 							staffName.toLowerCase().includes(keyword.toLowerCase())
 						)
@@ -50,7 +52,7 @@ export default function StaffTable({ semester, data, staff }) {
 									{staffName}
 								</p>
 								<p
-									className="mscb link"
+									className="mscb"
 									onClick={() => navigate(`/staff/${classes[0].MSCB}`)}
 								>
 									{classes[0].MSCB}
