@@ -2,7 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LOAD_STATUS } from "../../constants/status";
 
 import commentDataFile from "../../assets/data/comment.json";
-import { ATTITUDE } from "../../constants/selectName";
+import {
+	ATTITUDE,
+	LEARNING_TYPE_NAME,
+	SEMESTER_NAME,
+	SEMESTER_YEAR_NAME,
+	YEAR_NAME,
+} from "../../constants/selectName";
 
 export const commentSlice = createSlice({
 	name: "comment",
@@ -53,22 +59,23 @@ export const commentSlice = createSlice({
 export const { loadCommentData } = commentSlice.actions;
 
 export const selectComment =
-	(semesters, years, learningTypes, attitudes) => (state) => {
+	(
+		semesters = SEMESTER_YEAR_NAME,
+		learningTypes = LEARNING_TYPE_NAME,
+		attitudes = Array.from(Object.values(ATTITUDE))
+	) =>
+	(state) => {
 		const comments = state.comment.data;
-		if (!semesters || !years || !learningTypes || !attitudes) return [];
+		if (!semesters || !learningTypes || !attitudes) return [];
 		const commentsFilteredBySemester = new Map(
 			Object.entries(comments).filter(([key, value]) =>
 				semesters.some((semester) => key.includes(semester))
 			)
 		);
-		const commentsFilteredByYear = new Map(
-			Array.from(commentsFilteredBySemester.entries()).filter(
-				([key, value]) => years.some((year) => key.includes(year))
-			)
-		);
+
 		const commentsFilteredByType = new Map(
-			Array.from(commentsFilteredByYear.entries()).filter(([key, value]) =>
-				learningTypes.some((type) => key.includes(type))
+			Array.from(commentsFilteredBySemester.entries()).filter(
+				([key, value]) => learningTypes.some((type) => key.includes(type))
 			)
 		);
 		const filteredComments = Array.from(
@@ -89,6 +96,8 @@ export const selectComment =
 							content: cmt,
 							category: value.category,
 							attitude: ATTITUDE.POSITIVE,
+							name: value.name,
+							class: value.class,
 					  }))
 					: []),
 				...(value.negative
@@ -97,6 +106,8 @@ export const selectComment =
 							content: cmt,
 							category: value.category,
 							attitude: ATTITUDE.NEGATIVE,
+							name: value.name,
+							class: value.class,
 					  }))
 					: []),
 			];
@@ -133,6 +144,13 @@ export const selectCommentChart = (type) => (state) => {
 		labels: mapData.map((v) => v[0]),
 		data: mapData.map((v) => v[1] * 100),
 	};
+};
+
+export const selectCommentOfStaff = (staffName, semesterYear) => (state) => {
+	const data = selectComment(semesterYear)(state);
+	const filteredData = data.filter((v) => v.name === staffName);
+	console.log({ filteredData });
+	return filteredData;
 };
 
 export default commentSlice.reducer;

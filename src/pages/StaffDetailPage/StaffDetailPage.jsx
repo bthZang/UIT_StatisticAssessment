@@ -6,8 +6,9 @@ import Header from "../../components/Header/Header";
 
 import "./StaffDetailPage.scss";
 
-import { SEMESTER_NAME } from "../../constants/selectName";
 import BasicInfoTab from "./tabs/BasicInfoTab/BasicInfoTab";
+import CommentTab from "./tabs/CommentTab/CommentTab";
+import AssessmentTab from "./tabs/AssessmentTab/AssessmentTab";
 
 const tabNames = [
 	"Thông tin cơ bản",
@@ -20,20 +21,16 @@ export default function StaffDetailPage() {
 
 	const [displayType, setDisplayType] = useState(0);
 
-	const [semester, setSemester] = useState(SEMESTER_NAME[0]);
-
-	// const data = useSelector(selectStaffCriteria(semester, id));
-
 	function getRenderedTab() {
 		switch (displayType) {
 			case 0:
 				return <BasicInfoTab staffName={staffName} />;
 			case 1:
-				return null;
+				return <CommentTab staffName={staffName} />;
 			case 2:
-				return null;
+				return <AssessmentTab staffName={staffName} />;
 			default:
-				return null;
+				return <AssessmentTab staffName={staffName} />;
 		}
 	}
 

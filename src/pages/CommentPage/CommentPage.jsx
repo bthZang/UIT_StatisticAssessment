@@ -10,18 +10,19 @@ import {
 	ATTITUDE,
 	LEARNING_TYPE_NAME,
 	SEMESTER_NAME,
+	SEMESTER_YEAR_NAME,
 	YEAR_NAME,
 } from "../../constants/selectName";
 import { selectComment } from "../../features/comments/commentSlice";
 
+import { useNavigate } from "react-router-dom";
 import AttitudeDropDown from "../../components/AttitudeDropDown/AttitudeDropDown";
-import LearningTypeDropDown from "../../components/LearningTypeDropDown/LearningTypeDropDown";
+import CommentAttitudeChart from "../../components/CommentAttitudeChart/CommentAttitudeChart";
 import SemesterDropDown from "../../components/SemesterDropDown/SemesterDropDown";
+import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import "./CommentPage.scss";
-import { useNavigate } from "react-router-dom";
-import CommentAttitudeChart from "../../components/CommentAttitudeChart/CommentAttitudeChart";
-import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
+import DropDown from "../../components/DropDown/DropDown";
 
 export default function CommentPage() {
 	const navigate = useNavigate();
@@ -29,8 +30,8 @@ export default function CommentPage() {
 	const [keyword, setKeyword] = useState("");
 	const [index, setIndex] = useState(0);
 	const [displayType, setDisplayType] = useState(0);
-	const [semester, setSemester] = useState([SEMESTER_NAME[0]]);
-	const [year, setYear] = useState([YEAR_NAME[0]]);
+	const [semester, setSemester] = useState([SEMESTER_YEAR_NAME[0]]);
+	// const [year, setYear] = useState([YEAR_NAME[0]]);
 	const [learningType, setLearningType] = useState([LEARNING_TYPE_NAME[0]]);
 	const [attitude, setAttitude] = useState([
 		ATTITUDE.POSITIVE,
@@ -38,7 +39,7 @@ export default function CommentPage() {
 	]);
 
 	const comments = useSelector(
-		selectComment(semester, year, learningType, attitude)
+		selectComment(semester, learningType, attitude)
 	);
 
 	useInfiniteScroll(() => setIndex(index + 1));
@@ -53,15 +54,22 @@ export default function CommentPage() {
 			<DisplayTypeInput setChoice={setDisplayType} />
 			{displayType === 0 ? (
 				<>
-					{" "}
 					<div className="dropdown">
-						<YearDropDown year={year} onChange={setYear} />
+						{/* <YearDropDown year={year} onChange={setYear} /> */}
 					</div>
 					<div className="dropdown">
-						<SemesterDropDown
+						<DropDown
+							title="kỳ"
+							titleWidth={"max-content"}
+							width={500}
+							selected={semester}
+							onChange={setSemester}
+							dataset={SEMESTER_YEAR_NAME}
+						/>
+						{/* <SemesterDropDown
 							semester={semester}
 							onChange={setSemester}
-						/>
+						/> */}
 						<AttitudeDropDown
 							attitude={attitude}
 							onChange={setAttitude}
@@ -69,7 +77,7 @@ export default function CommentPage() {
 					</div>
 					<SearchBox
 						placeholder={"Nhập từ khóa cần tìm kiếm..."}
-						onSearch={setKeyword}
+						onChange={setKeyword}
 					/>
 					<div className="comment-box">
 						<div className="comment-by-year">

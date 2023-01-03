@@ -8,8 +8,8 @@ export default function Header({ title }) {
 	const navigate = useNavigate();
 
 	return (
-		<div className="header" style={{  }}>
-			<div className="go-back" onClick={() => navigate(-1)}>
+		<div className="header" style={{}}>
+			<div className="go-back" onClick={() => navigate("/")}>
 				<img src={GO_BACK_ICON} alt="" />
 				<p>Về trang chủ</p>
 			</div>

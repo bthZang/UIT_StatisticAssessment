@@ -31,7 +31,7 @@ export const options = {
 		},
 		title: {
 			display: true,
-			text: "Biểu đồ điểm đánh giá theo tiêu chí",
+			text: "Biểu đồ điểm đánh giá giảng viên",
 		},
 	},
 	scales: {

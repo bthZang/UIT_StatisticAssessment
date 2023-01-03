@@ -169,16 +169,16 @@ export const selectStaffInfo = (staffName) => (state) => {
 	);
 
 	return {
-		"Họ và tên": data?.fullname,
-		Email: data?.email,
-		"Số điện thoại": `0${data?.phone}`,
-		"Giới tính": data?.gender,
-		"Khoa/Bộ môn": data?.faculty,
-		"Ngày sinh": data?.birthdate,
-		"Học vị": data?.learning,
-		"Chức danh": data?.learningPosition,
-		"Chức vụ": data?.position,
-		Ngạch: data?.ngach,
+		"Họ và tên": data?.fullname || "Không có dữ liệu",
+		Email: data?.email || "Không có dữ liệu",
+		"Số điện thoại": data?.phone ? `0${data?.phone}` : "Không có dữ liệu",
+		"Giới tính": data?.gender || "Không có dữ liệu",
+		"Khoa/Bộ môn": data?.faculty || "Không có dữ liệu",
+		"Ngày sinh": data?.birthdate || "Không có dữ liệu",
+		"Học vị": data?.learning || "Không có dữ liệu",
+		"Chức danh": data?.learningPosition || "Không có dữ liệu",
+		"Chức vụ": data?.position || "Không có dữ liệu",
+		Ngạch: data?.ngach || "Không có dữ liệu",
 	};
 };
 
@@ -192,7 +192,7 @@ export const selectClassOfStaff = (staffName) => (state) => {
 		});
 	});
 	const classArray = Array.from(classes.entries());
-	return classArray
+	return classArray;
 };
 
 export default assessmentSlice.reducer;

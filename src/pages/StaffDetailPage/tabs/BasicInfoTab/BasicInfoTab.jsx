@@ -8,9 +8,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import InfoBox from "../../../../components/InfoBox/InfoBox";
 
+import { useNavigate } from "react-router-dom";
 import "./BasicInfoTab.scss";
 
 export default function BasicInfoTab({ staffName }) {
+	const navigate = useNavigate();
+
 	const profile = useSelector(selectStaffInfo(staffName));
 	const taughtClass = useSelector(selectClassOfStaff(staffName));
 
@@ -37,7 +40,12 @@ export default function BasicInfoTab({ staffName }) {
 										<p className="avg">Điểm đánh giá</p>
 									</div>
 									{info.map(({ CLASS, SUBJECT, TYPE, AVG }) => (
-										<div className="class link">
+										<div
+											className="class link"
+											onClick={() =>
+												navigate(`/class/${CLASS}-${semester}`)
+											}
+										>
 											<p className="name">{CLASS}</p>
 											<p className="subject">{SUBJECT}</p>
 											<p className="type">{TYPE}</p>
