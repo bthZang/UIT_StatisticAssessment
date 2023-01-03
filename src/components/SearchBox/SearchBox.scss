@@ -24,4 +24,29 @@
 			font-size: 18px;
 		}
 	}
+
+	.remove-button {
+	width: 150px;
+	background-color: var(--primary);
+	color: white;
+	border: 1px solid var(--gray);
+	border-radius: 6px;
+	font-size: 18px;
+	font-weight: 500;
+
+	position: relative;
+	top: 0;
+	left: 0;
+
+	cursor: pointer;
+
+	transition: 0.2s;
+
+	&:hover {
+		top: -5px;
+		left: -5px;
+		box-shadow: 5px 5px 0 rgb(159, 159, 159);
+	}
+}
+
 }

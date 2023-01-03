@@ -5,7 +5,7 @@ import SearchButton from "../../components/SearchButton/SearchButton";
 
 import "./SearchBox.scss";
 
-export default function SearchBox({ placeholder, onSearch = () => {} }) {
+export default function SearchBox({ placeholder, onChange = () => {} }) {
 	const inputRef = useRef();
 
 	return (
@@ -14,7 +14,18 @@ export default function SearchBox({ placeholder, onSearch = () => {} }) {
 				<img src={SEARCH_ICON} alt="" />
 				<input ref={inputRef} type="text" placeholder={placeholder} />
 			</div>
-			<SearchButton onClick={() => onSearch(inputRef.current.value)} />
+			{inputRef?.current?.value ? (
+				<button
+					onClick={() => {
+						inputRef.current.value = "";
+						onChange("");
+					}}
+					className="remove-button"
+				>
+					Bỏ tìm kiếm
+				</button>
+			) : null}
+			<SearchButton onClick={() => onChange(inputRef.current.value)} />
 		</div>
 	);
 }

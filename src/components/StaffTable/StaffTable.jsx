@@ -13,7 +13,7 @@ export default function StaffTable({ semester, data, staff }) {
 	return (
 		<div className="container">
 			<SearchBox
-				placeholder={"Nhập mã cán bộ cần tìm..."}
+				placeholder={"Nhập mã giảng viên hoặc tên giảng viên cần tìm..."}
 				onChange={setKeyword}
 			/>
 			<div className="table">
@@ -38,6 +38,9 @@ export default function StaffTable({ semester, data, staff }) {
 				<div className="table-body">
 					{data
 						?.filter(([staffName]) => staff.some((v) => v === staffName))
+						?.filter(([staffName]) =>
+							staffName.toLowerCase().includes(keyword.toLowerCase())
+						)
 						?.map?.(([staffName, classes]) => (
 							<div key={`${staffName} ${semester}`} className="row">
 								<p
