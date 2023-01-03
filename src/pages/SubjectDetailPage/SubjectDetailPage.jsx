@@ -7,6 +7,10 @@ import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput
 import Header from "../../components/Header/Header";
 
 import "./SubjectDetailPage.scss";
+import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
+import { SEMESTER_YEAR_NAME } from "../../constants/selectName";
+import { useSelector } from "react-redux";
+import { selectSubjectAssessmentData } from "../../features/assessment/assessmentSlice";
 
 const criteriaData = Array(20)
 	.fill("")
@@ -22,19 +26,30 @@ const criteriaData = Array(20)
 		},
 	}));
 
+const choices = ["Danh sách giảng viên", "Biểu đồ"];
+
 export default function SubjectDetailPage() {
-	const [displayType, setDisplayType] = useState(0);
 	const { subjectName } = useParams();
+
+	const [displayType, setDisplayType] = useState(0);
+	const [semesterYear, setSemesterYear] = useState(SEMESTER_YEAR_NAME[0]);
+
+	const data = useSelector(selectSubjectAssessmentData(semesterYear));
 
 	return (
 		<div className="subject-detail-page">
 			<Header title={subjectName} />
-			<DisplayTypeInput setChoice={setDisplayType} />
+			<DisplayTypeInput choices={choices} setChoice={setDisplayType} />
+			<SingleDropDown
+				title="kỳ"
+				selected={semesterYear}
+				dataset={SEMESTER_YEAR_NAME}
+				onChange={setSemesterYear}
+			/>
 			{displayType == 0 ? (
-				<CriteriaTable data={criteriaData} />
-			) : (
-				<CriteriaRadarChart data={criteriaData} />
-			)}
+				<CriteriaTable data={data} />
+			) : // <CriteriaRadarChart data={criteriaData} />
+			null}
 		</div>
 	);
 }
