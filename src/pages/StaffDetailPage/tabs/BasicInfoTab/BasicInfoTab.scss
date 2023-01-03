@@ -1,0 +1,72 @@
+.basic-info-tab {
+	padding-left: 70px;
+	padding-right: 100px;
+
+	display: grid;
+	grid-template-columns: 4fr 5fr;
+
+	h2 {
+		margin-left: -50px;
+		margin-bottom: 20px;
+	}
+
+	.taught-class {
+		.taught-class-list {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+
+			.semester {
+				.semester-name {
+					font-size: 1.1rem;
+					font-weight: 500;
+				}
+
+				.class {
+					display: flex;
+					justify-content: space-between;
+
+					padding: 5px;
+
+					font-size: 1rem;
+					font-weight: 500;
+
+					.name {
+						flex: 1.2;
+					}
+					.subject {
+						flex: 1;
+						text-align: center;
+					}
+					.type {
+						flex: 1;
+						text-align: center;
+					}
+					.avg {
+						flex: 0.8;
+						text-align: end;
+					}
+
+					&:nth-child(even) {
+						background-color: var(--primary);
+						color: white;
+					}
+				}
+
+				.total {
+					font-size: 1.1rem;
+					font-weight: 600;
+					margin-top: 20px;
+					text-align: end;
+
+					span {
+						font-size: 1.5rem;
+						font-weight: 600;
+						color: var(--primary);
+						margin-left: 5px;
+					}
+				}
+			}
+		}
+	}
+}

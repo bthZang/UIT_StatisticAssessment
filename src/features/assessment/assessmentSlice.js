@@ -163,7 +163,36 @@ export const selectStaffCriteria = (semester, staffID) => (state) => {
 
 export const selectStaffInfoData = (state) => state.assessment.staffInfos;
 
-export const selectStaffInfo = (id) => (state) =>
-	state.assessment.staffInfos.find((staff) => id == staff.id);
+export const selectStaffInfo = (staffName) => (state) => {
+	const data = state.assessment.staffInfos.find(
+		(staff) => staffName == staff.fullname
+	);
+
+	return {
+		"Họ và tên": data?.fullname,
+		Email: data?.email,
+		"Số điện thoại": `0${data?.phone}`,
+		"Giới tính": data?.gender,
+		"Khoa/Bộ môn": data?.faculty,
+		"Ngày sinh": data?.birthdate,
+		"Học vị": data?.learning,
+		"Chức danh": data?.learningPosition,
+		"Chức vụ": data?.position,
+		Ngạch: data?.ngach,
+	};
+};
+
+export const selectClassOfStaff = (staffName) => (state) => {
+	const assessment = state.assessment.data;
+	const classes = new Map();
+	Object.entries(assessment).forEach(([semester, classObject]) => {
+		classObject?.forEach(({ TEACHER, ...other }) => {
+			if (TEACHER === staffName)
+				classes.set(semester, [...(classes.get(semester) || []), other]);
+		});
+	});
+	const classArray = Array.from(classes.entries());
+	return classArray
+};
 
 export default assessmentSlice.reducer;

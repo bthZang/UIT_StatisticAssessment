@@ -1,0 +1,22 @@
+.info-box-container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	.info-text {
+		display: flex;
+		gap: 20px;
+
+      font-size: 1.1rem;
+
+		.title {
+			flex: 2;
+         font-weight: 500;
+		}
+
+		.content {
+			flex: 4;
+         font-weight: 600;
+		}
+	}
+}

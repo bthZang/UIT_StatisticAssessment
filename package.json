@@ -15,6 +15,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@infinite-table/infinite-react": "^0.6.0",
+    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.10.13",
     "@reduxjs/toolkit": "^1.9.1",
     "chart.js": "^3.9.1",
