@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 
 import Header from "../../components/Header/Header";
-import SearchBox from "../../components/SearchBox/SearchBox";
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
+import DropDown from "../../components/DropDown/DropDown";
 import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
 import SubjectHistogramChart from "../../components/SubjectHistogramChart/SubjectHistogramChart";
 import SubjectTable from "../../components/SubjectTable/SubjectTable";
 import { SEMESTER_YEAR_NAME } from "../../constants/selectName";
 import { selectSubjectAssessmentData } from "../../features/assessment/assessmentSlice";
 import "./SubjectPage.scss";
-import DropDown from "../../components/DropDown/DropDown";
 
 export default function SubjectPage() {
 	const navigate = useNavigate();

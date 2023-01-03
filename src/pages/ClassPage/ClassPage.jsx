@@ -1,122 +1,69 @@
 import Header from "../../components/Header/Header";
-import SearchBox from "../../components/SearchBox/SearchBox";
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-
-import "./ClassPage.scss";
-import YearDropDown from "../../components/YearDropDown/YearDropDown";
-import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
-import { useState } from "react";
-import ClassHistogramChart from "../../components/ClassHistogramChart/ClassHistogramChart";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ClassHistogramChart from "../../components/ClassHistogramChart/ClassHistogramChart";
+import DisplayTypeInput from "../../components/DisplayTypeInput/DisplayTypeInput";
+import YearDropDown from "../../components/YearDropDown/YearDropDown";
+import "./ClassPage.scss";
 
-const data = [
-	{
-		name: "IT008.N11.PMCL",
-		staff: 80200,
-		comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-		point: 3.5,
-	},
-	{
-		name: "IT008.N13.PMCL",
-		staff: 80200,
-		comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-		point: 3.7,
-	},
-	{
-		name: "IT007.N11.PMCL",
-		staff: 80201,
-		comments: ["fadsfsaf", "afadsfa", "afqrwewqr", "vzxcvxvz"],
-		point: 3.8,
-	},
-];
+import { useSelector } from "react-redux";
+import ClassTable from "../../components/ClassTable/ClassTable";
+import DropDown from "../../components/DropDown/DropDown";
+import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
+import { SEMESTER_YEAR_NAME } from "../../constants/selectName";
+import { selectSubjectAssessmentData } from "../../features/assessment/assessmentSlice";
 
 export default function ClassPage() {
 	const navigate = useNavigate();
+
 	const [displayType, setDisplayType] = useState(0);
+	const [semesterYear, setSemesterYear] = useState(SEMESTER_YEAR_NAME[0]);
+	const [classes, setClasses] = useState([]);
+
+	const data = useSelector(selectSubjectAssessmentData(semesterYear));
+
+	useEffect(() => {
+		setClasses(data.map((v) => v[0]));
+	}, []);
 
 	return (
 		<div className="class-page">
 			<Header title="Thống kê theo lớp" />
 			<DisplayTypeInput setChoice={setDisplayType} />
-			<YearDropDown />
 			{displayType === 1 ? (
-				<ClassHistogramChart />
+				<>
+					<SingleDropDown
+						title="kỳ"
+						selected={semesterYear}
+						dataset={SEMESTER_YEAR_NAME}
+						onChange={setSemesterYear}
+					/>
+					<ClassHistogramChart semester={semesterYear} />
+				</>
 			) : (
 				<>
-					<SearchBox placeholder="Nhập lớp cần tìm" />
-					<TableContainer component={Paper}>
-						<Table sx={{ minWidth: 650 }} aria-label="simple table">
-							<TableHead>
-								<TableRow>
-									<TableCell align="center" component="th" scope="row">
-										<p>Mã môn học</p>
-									</TableCell>
-									<TableCell align="center">
-										<p>Mã cán bộ</p>
-									</TableCell>
-									<TableCell align="center">
-										<p>Điểm đánh giá</p>
-									</TableCell>
-									<TableCell style={{ width: "700px" }} align="center">
-										<p>Nhận xét</p>
-									</TableCell>
-								</TableRow>
-							</TableHead>
-							<TableBody>
-								{data.map((classInfo) => (
-									<>
-										<TableRow rowSpan={classInfo.comments.length}>
-											<TableCell
-												align="center"
-												component="th"
-												scope="row"
-											>
-												<p
-													className="link"
-													onClick={() =>
-														navigate(`/class/${classInfo.id}`)
-													}
-												>
-													{classInfo.name}
-												</p>
-											</TableCell>
-											<TableCell align="center">
-												<p>{classInfo.staff}</p>
-											</TableCell>
-											<TableCell align="center">
-												<p>{classInfo.point}</p>
-											</TableCell>
-											<TableCell
-												style={{
-													padding: 0,
-													width: "700px",
-												}}
-												align="center"
-											>
-												{classInfo.comments.map((comment) => (
-													<TableRow>
-														<TableCell
-															sx={{ width: "700px" }}
-															align="center"
-														>
-															{comment}
-														</TableCell>
-													</TableRow>
-												))}
-											</TableCell>
-										</TableRow>
-									</>
-								))}
-							</TableBody>
-						</Table>
-					</TableContainer>
+					<div className="dropdown">
+						<SingleDropDown
+							title="kỳ"
+							selected={semesterYear}
+							dataset={SEMESTER_YEAR_NAME}
+							onChange={setSemesterYear}
+						/>
+						<DropDown
+							titleWidth={"max-content"}
+							width={500}
+							selected={classes}
+							title={"môn học"}
+							dataset={data?.map((v) => v[0])}
+							onChange={setClasses}
+						/>
+					</div>
+					<ClassTable
+						semester={semesterYear}
+						data={data}
+						subject={data.map((v) => v[0])}
+					/>
 				</>
 			)}
 		</div>

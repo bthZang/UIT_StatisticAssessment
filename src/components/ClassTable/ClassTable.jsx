@@ -2,21 +2,21 @@ import { useState } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 
 import { useNavigate } from "react-router-dom";
-import "./SubjectTable.scss";
+import "./ClassTable.scss";
 
-export default function SubjectTable({ semester, data, subject }) {
+export default function ClassTable({ semester, data, subject }) {
 	const navigate = useNavigate();
 	const [keyword, setKeyword] = useState("");
 
 	return (
-		<div className="subject-container">
+		<div className="class-container">
 			<SearchBox
 				placeholder={"Nhập môn học/mã môn học cần tìm..."}
 				onChange={setKeyword}
 			/>
 			<div className="table">
 				<div className="row header">
-					<p className="subject">Môn học</p>
+					<p className="subject">Lớp</p>
 					<p className="major">Khoa/Bộ môn</p>
 					<div className="other-field">
 						<p className="teacher">Tên giảng viên</p>

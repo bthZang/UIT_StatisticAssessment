@@ -61,19 +61,16 @@ export const selectComment =
 				semesters.some((semester) => key.includes(semester))
 			)
 		);
-		// console.log({ commentsFilteredBySemester });
 		const commentsFilteredByYear = new Map(
 			Array.from(commentsFilteredBySemester.entries()).filter(
 				([key, value]) => years.some((year) => key.includes(year))
 			)
 		);
-		// console.log({ commentsFilteredByYear });
 		const commentsFilteredByType = new Map(
 			Array.from(commentsFilteredByYear.entries()).filter(([key, value]) =>
 				learningTypes.some((type) => key.includes(type))
 			)
 		);
-		// console.log({ commentsFilteredByType });
 		const filteredComments = Array.from(
 			commentsFilteredByType.entries()
 		).reduce(
@@ -83,7 +80,6 @@ export const selectComment =
 			],
 			[]
 		);
-		// console.log({ filteredComments });
 
 		const commentList = filteredComments.reduce((list, value) => {
 			const commentArray = [
@@ -113,5 +109,30 @@ export const selectComment =
 			attitudes.some((attitude) => attitude === comment.attitude)
 		);
 	};
+
+export const selectCommentChart = (type) => (state) => {
+	const data = Object.entries(state.comment.data).filter(([key]) =>
+		key.includes(type)
+	);
+	const mapData = data.map(([key, value]) => [
+		key.split(",").slice(0, 2).join(","),
+		value.reduce(
+			(total, comment) => (total += comment?.positive?.length || 0),
+			0
+		) /
+			value.reduce(
+				(total, comment) =>
+					(total +=
+						(comment?.positive?.length || 0) +
+						(comment?.negative?.length || 0)),
+				0
+			),
+	]);
+
+	return {
+		labels: mapData.map((v) => v[0]),
+		data: mapData.map((v) => v[1] * 100),
+	};
+};
 
 export default commentSlice.reducer;

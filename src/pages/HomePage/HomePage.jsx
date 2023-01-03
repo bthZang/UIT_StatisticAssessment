@@ -25,9 +25,9 @@ export default function HomePage() {
 				<button type="button" onClick={() => navigate("subject")}>
 					Thống kê theo môn học
 				</button>
-				<button type="button" onClick={() => navigate("class")}>
+				{/* <button type="button" onClick={() => navigate("class")}>
 					Thống kê theo lớp
-				</button>
+				</button> */}
 			</div>
 		</div>
 	);

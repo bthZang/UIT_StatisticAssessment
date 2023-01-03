@@ -45,6 +45,18 @@ export const selectSubjectAssessmentData = (semester) => (state) => {
 	return Array.from(dataGroupBySubject.entries());
 };
 
+export const selectClassAssessmentData = (semester) => (state) => {
+	const data = state.assessment.data[semester];
+	const dataGroupByClass = new Map();
+	data.forEach(({ CLASS, ...other }) => {
+		dataGroupByClass.set(CLASS, [
+			...(dataGroupByClass.get(CLASS) || []),
+			other,
+		]);
+	});
+	return Array.from(dataGroupByClass.entries());
+};
+
 export const selectStaffHistogramData = (semester) => (state) => {
 	const data = selectStaffAssessmentData(semester)(state).reduce(
 		(list, [staffName, other]) => {
@@ -79,6 +91,35 @@ export const selectSubjectHistogramData = (semester) => (state) => {
 		(list, [subjectName, other]) => {
 			list.set(
 				subjectName,
+				other.reduce((avg, doc) => avg + doc.AVG, 0) / other.length
+			);
+
+			return new Map(list);
+		},
+		new Map()
+	);
+	const pointHistogram = new Map();
+
+	Array.from(data.values()).forEach((AVG) =>
+		pointHistogram.set(
+			parseInt(AVG * 10) / 10,
+			(pointHistogram.get(parseInt(AVG * 10) / 10) || 0) + 1
+		)
+	);
+
+	return {
+		labels: Array.from(pointHistogram.keys()).sort(),
+		data: Array.from(pointHistogram.entries())
+			.sort((a, b) => a[0] - b[0])
+			.map((v) => v[1]),
+	};
+};
+
+export const selectClassHistogramData = (semester) => (state) => {
+	const data = selectClassAssessmentData(semester)(state).reduce(
+		(list, [className, other]) => {
+			list.set(
+				className,
 				other.reduce((avg, doc) => avg + doc.AVG, 0) / other.length
 			);
 
