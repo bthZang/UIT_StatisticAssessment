@@ -50,6 +50,7 @@ export default function CommentGroup({ comments, staffName }) {
 				}}
 			/>
 			<div className="comment-groups">
+				{comments.length === 0 ? <h3>Không có nhận xét</h3> : null}
 				{comments.slice(0, index * 10).map((comment, index) =>
 					comment.content?.includes(keyword) ? (
 						<p

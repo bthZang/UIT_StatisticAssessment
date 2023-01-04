@@ -36,6 +36,7 @@ export const selectStaffAssessmentData = (semester) => (state) => {
 
 export const selectSubjectAssessmentData = (semester) => (state) => {
 	const data = state.assessment.data[semester];
+	if (!data) return null;
 	const dataGroupBySubject = new Map();
 	data.forEach(({ SUBJECT, ...other }) => {
 		dataGroupBySubject.set(SUBJECT, [
@@ -49,7 +50,9 @@ export const selectSubjectAssessmentData = (semester) => (state) => {
 export const selectSubjectDetailAssessment =
 	(semester, subjectName) => (state) => {
 		const data = selectSubjectAssessmentData(semester)(state);
-		const filteredData = data.find(([name]) => name === subjectName)[1];
+		if (!data) return null;
+		const filteredData = data.find(([name]) => name === subjectName)?.[1];
+		if (!filteredData) return null;
 		const summaryData = filteredData.reduce((summary, classData, index) => {
 			const newSummary = new Map(summary);
 			const valueArray = Array.from(Object.entries(classData));
