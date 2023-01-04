@@ -1,0 +1,64 @@
+.staff-ranking-container {
+   h2 {
+      margin: 20px;
+      margin-bottom: 40px;
+      text-align: center;
+   }
+   
+	.ranking-table {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+
+		.staff {
+			display: flex;
+			justify-content: space-between;
+
+			background-color: #fff;
+			padding: 10px 30px;
+
+			font-size: 1.1rem;
+			font-weight: 500;
+
+			cursor: pointer;
+			transition: 0.3s;
+
+			.index {
+				width: 50px;
+				text-align: left;
+			}
+
+			.name {
+			}
+
+			.point {
+				width: 50px;
+				text-align: right;
+			}
+
+			&:nth-child(1) {
+				font-size: 1.3rem;
+				font-weight: 600;
+
+				background-color: rgb(251, 241, 98);
+			}
+
+			&:nth-child(2) {
+				font-size: 1.2rem;
+				font-weight: 600;
+				background-color: rgb(215, 215, 215);
+			}
+
+			&:nth-child(3) {
+				font-size: 1.2rem;
+				font-weight: 600;
+				background-color: rgb(250, 204, 96);
+			}
+
+			&:hover {
+				transform: scale(1.05);
+				background-color: rgb(113, 200, 254);
+			}
+		}
+	}
+}

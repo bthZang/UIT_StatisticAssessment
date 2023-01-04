@@ -51,12 +51,7 @@ export default function StaffTable({ semester, data, staff }) {
 								>
 									{staffName}
 								</p>
-								<p
-									className="mscb"
-									onClick={() => navigate(`/staff/${classes[0].MSCB}`)}
-								>
-									{classes[0].MSCB}
-								</p>
+								<p className="mscb">{classes[0].MSCB}</p>
 								<div className="sub-row">
 									{classes.map(
 										({

@@ -12,6 +12,13 @@ import StaffTable from "../../components/StaffTable/StaffTable";
 import { SEMESTER_YEAR_NAME } from "../../constants/selectName";
 import { selectStaffAssessmentData } from "../../features/assessment/assessmentSlice";
 import "./StaffPage.scss";
+import StaffRanking from "../../components/StaffRanking/StaffRanking";
+
+const choices = [
+	"Thống kê giảng viên",
+	"Biểu đồ điểm đánh giá",
+	"Xếp hạng giảng viên theo điểm đánh giá",
+];
 
 export default function StaffPage() {
 	const navigate = useNavigate();
@@ -23,41 +30,67 @@ export default function StaffPage() {
 
 	const [staff, setStaff] = useState(data.map((v) => v[0]));
 
-	return (
-		<div className="staff-page">
-			<Header title={"Thống kê cán bộ"} />
-			<DisplayTypeInput setChoice={setDisplayType} />
-			{displayType === 1 ? (
-				<>
-					<SingleDropDown
-						title={"kỳ"}
-						dataset={SEMESTER_YEAR_NAME}
-						selected={semesterYear}
-						onChange={setSemesterYear}
-					/>
-					<StaffHistogramChart semester={semesterYear} />
-				</>
-			) : (
-				<>
-					<div className="dropdown">
+	function getRenderedTab() {
+		switch (displayType) {
+			case 0:
+				return (
+					<>
+						<div className="dropdown">
+							<SingleDropDown
+								title={"kỳ"}
+								dataset={SEMESTER_YEAR_NAME}
+								selected={semesterYear}
+								onChange={setSemesterYear}
+							/>
+							<DropDown
+								titleWidth={"max-content"}
+								width={500}
+								selected={staff}
+								title={"giảng viên"}
+								dataset={data?.map((v) => v[0])}
+								onChange={setStaff}
+							/>
+						</div>
+						<StaffTable
+							semester={semesterYear}
+							data={data}
+							staff={staff}
+						/>
+					</>
+				);
+			case 1:
+				return (
+					<>
 						<SingleDropDown
 							title={"kỳ"}
 							dataset={SEMESTER_YEAR_NAME}
 							selected={semesterYear}
 							onChange={setSemesterYear}
 						/>
-						<DropDown
-							titleWidth={"max-content"}
-							width={500}
-							selected={staff}
-							title={"giảng viên"}
-							dataset={data?.map((v) => v[0])}
-							onChange={setStaff}
+						<StaffHistogramChart semester={semesterYear} />
+					</>
+				);
+			case 2:
+				return (
+					<>
+						<SingleDropDown
+							title={"kỳ"}
+							dataset={SEMESTER_YEAR_NAME}
+							selected={semesterYear}
+							onChange={setSemesterYear}
 						/>
-					</div>
-					<StaffTable semester={semesterYear} data={data} staff={staff} />
-				</>
-			)}
+						<StaffRanking semester={semesterYear} />
+					</>
+				);
+			default:
+		}
+	}
+
+	return (
+		<div className="staff-page">
+			<Header title={"Thống kê cán bộ"} />
+			<DisplayTypeInput choices={choices} setChoice={setDisplayType} />
+			{getRenderedTab()}
 		</div>
 	);
 }

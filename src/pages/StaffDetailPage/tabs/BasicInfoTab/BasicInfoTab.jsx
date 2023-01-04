@@ -61,7 +61,7 @@ export default function BasicInfoTab({ staffName }) {
 														(total, { AVG }) => total + AVG,
 														0
 													) / info.length
-												).toFixed(1)}
+												).toFixed(2)}
 											</span>
 										</p>
 									</div>

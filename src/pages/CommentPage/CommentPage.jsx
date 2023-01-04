@@ -23,6 +23,7 @@ import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
 import useInfiniteScroll from "../../hooks/useInfiniteScroll";
 import "./CommentPage.scss";
 import DropDown from "../../components/DropDown/DropDown";
+import CommentGroup from "../../components/CommentGroup/CommentGroup";
 
 export default function CommentPage() {
 	const navigate = useNavigate();
@@ -75,11 +76,12 @@ export default function CommentPage() {
 							onChange={setAttitude}
 						/>
 					</div>
-					<SearchBox
+					{/* <SearchBox
 						placeholder={"Nhập từ khóa cần tìm kiếm..."}
 						onChange={setKeyword}
-					/>
-					<div className="comment-box">
+					/> */}
+					<CommentGroup comments={comments} />
+					{/* <div className="comment-box">
 						<div className="comment-by-year">
 							<div className="comment-groups">
 								{comments.slice(0, index * 10).map((comment, index) =>
@@ -105,7 +107,7 @@ export default function CommentPage() {
 								)}
 							</div>
 						</div>
-					</div>
+					</div> */}
 				</>
 			) : (
 				<>

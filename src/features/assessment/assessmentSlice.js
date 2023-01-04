@@ -225,4 +225,15 @@ export const selectStaffByPoint = (semester, point) => (state) => {
 	return assessmentData;
 };
 
+export const selectStaffRanking = (semester) => (state) => {
+	const data = selectStaffAssessmentData(semester)(state);
+	const staffAveragePoints = data.map?.(([staffName, classes]) => [
+		staffName,
+		classes.reduce((total, { AVG }) => total + AVG, 0) /
+			(classes.length || 1),
+	]);
+	const rankingData = staffAveragePoints.sort((a, b) => b[1] - a[1]);
+	return rankingData
+};
+
 export default assessmentSlice.reducer;
