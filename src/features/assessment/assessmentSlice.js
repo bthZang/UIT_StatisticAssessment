@@ -3,6 +3,7 @@ import { LOAD_STATUS } from "../../constants/status";
 
 import staffAssessmentDataFile from "../../assets/data/ĐTB-GV-2017-2021.json";
 import staffInfoDataFile from "../../assets/data/MSCB.json";
+import { CRITERIA_NAME_LT } from "../../constants/criteriaName";
 
 export const assessmentSlice = createSlice({
 	name: "assessment",
@@ -49,10 +50,7 @@ export const selectClassAssessmentData = (semester) => (state) => {
 	const data = state.assessment.data[semester];
 	const dataGroupByClass = new Map();
 	data.forEach(({ CLASS, ...other }) => {
-		dataGroupByClass.set(CLASS, [
-			...(dataGroupByClass.get(CLASS) || []),
-			other,
-		]);
+		dataGroupByClass.set(CLASS, other);
 	});
 	return Array.from(dataGroupByClass.entries());
 };
@@ -116,34 +114,34 @@ export const selectSubjectHistogramData = (semester) => (state) => {
 	};
 };
 
-export const selectClassHistogramData = (semester) => (state) => {
-	const data = selectClassAssessmentData(semester)(state).reduce(
-		(list, [className, other]) => {
-			list.set(
-				className,
-				other.reduce((avg, doc) => avg + doc.AVG, 0) / other.length
-			);
+// export const selectClassHistogramData = (semester) => (state) => {
+// 	const data = selectClassAssessmentData(semester)(state).reduce(
+// 		(list, [className, other]) => {
+// 			list.set(
+// 				className,
+// 				other.reduce((avg, doc) => avg + doc.AVG, 0) / other.length
+// 			);
 
-			return new Map(list);
-		},
-		new Map()
-	);
-	const pointHistogram = new Map();
+// 			return new Map(list);
+// 		},
+// 		new Map()
+// 	);
+// 	const pointHistogram = new Map();
 
-	Array.from(data.values()).forEach((AVG) =>
-		pointHistogram.set(
-			parseInt(AVG * 10) / 10,
-			(pointHistogram.get(parseInt(AVG * 10) / 10) || 0) + 1
-		)
-	);
+// 	Array.from(data.values()).forEach((AVG) =>
+// 		pointHistogram.set(
+// 			parseInt(AVG * 10) / 10,
+// 			(pointHistogram.get(parseInt(AVG * 10) / 10) || 0) + 1
+// 		)
+// 	);
 
-	return {
-		labels: Array.from(pointHistogram.keys()).sort(),
-		data: Array.from(pointHistogram.entries())
-			.sort((a, b) => a[0] - b[0])
-			.map((v) => v[1]),
-	};
-};
+// 	return {
+// 		labels: Array.from(pointHistogram.keys()).sort(),
+// 		data: Array.from(pointHistogram.entries())
+// 			.sort((a, b) => a[0] - b[0])
+// 			.map((v) => v[1]),
+// 	};
+// };
 
 export const selectStaffCriteria = (semester, staffID) => (state) => {
 	if (!selectStaffAssessmentData(semester)(state)) return;
@@ -233,7 +231,40 @@ export const selectStaffRanking = (semester) => (state) => {
 			(classes.length || 1),
 	]);
 	const rankingData = staffAveragePoints.sort((a, b) => b[1] - a[1]);
-	return rankingData
+	return rankingData;
+};
+
+export const selectClassDetailAssessment = (semester, className) => (state) => {
+	const data = selectClassAssessmentData(semester)(state);
+	const classData = data.find(([name]) => name === className)?.[1] || null;
+	if (!classData) return null;
+
+	const { TEACHER, TYPE, MAJOR, SUBJECT, NUMBER, JOINED, ...other } =
+		classData;
+
+	const points = Array.from(Object.entries(other))
+		.filter(([key]) => !isNaN(parseInt(key)))
+		.map(([key, value]) => ({
+			id: key,
+			criteria: CRITERIA_NAME_LT[key],
+			point: value,
+		}));
+
+	return {
+		info: {
+			"Tên môn học": SUBJECT || "Không có dữ liệu",
+			"Tên giảng viên": TEACHER || "Không có dữ liệu",
+			"Chương trình": TYPE || "Không có dữ liệu",
+			"Khoa/Bộ môn": MAJOR || "Không có dữ liệu",
+			"Sĩ số": NUMBER || "Không có dữ liệu",
+			"Tham gia": JOINED || "Không có dữ liệu",
+			link: {
+				"Tên giảng viên": `/staff/${TEACHER}`,
+				"Tên môn học": `/subject/${SUBJECT}`,
+			},
+		},
+		points,
+	};
 };
 
 export default assessmentSlice.reducer;

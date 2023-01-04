@@ -31,7 +31,7 @@ export const options = {
 		},
 		title: {
 			display: true,
-			text: "Biểu đồ điểm đánh giá giảng viên",
+			text: "Biểu đồ điểm đánh giá",
 		},
 	},
 	scales: {
@@ -41,12 +41,12 @@ export const options = {
 	},
 };
 
-export default function CriteriaChart({ data }) {
+export default function CriteriaChart({ data, semester }) {
 	const chartData = {
 		labels: data.map((v, index) => `Tiêu chí ${index + 1}`),
 		datasets: [
 			{
-				label: "Tỉ lệ hài lòng 2018 -2019 (%)",
+				label: `Tỉ lệ hài lòng ${semester} (%)`,
 				data: data.map((v) => v.point),
 				backgroundColor: "#bdb2ff",
 			},

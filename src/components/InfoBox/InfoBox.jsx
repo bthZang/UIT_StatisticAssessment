@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./InfoBox.scss";
 
-export default function InfoBox({ info }) {
+export default function InfoBox({ info, width = "100%" }) {
 	const { link = {} } = info;
 
 	const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function InfoBox({ info }) {
 	}
 
 	return (
-		<div className="info-box-container">
+		<div className="info-box-container" style={{ width }}>
 			{Array.from(Object.entries(info)).map(([title, content]) => (
 				<>
 					{title !== "link" ? (

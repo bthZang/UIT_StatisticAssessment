@@ -161,4 +161,20 @@ export const selectCommentOfStaff =
 		return filteredAttitude;
 	};
 
+export const selectCommentOfClass =
+	(
+		className,
+		semesterYear,
+		attitudes = [ATTITUDE.POSITIVE, ATTITUDE.NEGATIVE]
+	) =>
+	(state) => {
+		const data = selectComment(semesterYear)(state);
+		console.log({ data });
+		const filteredData = data.filter((v) => v.class === className);
+		const filteredAttitude = filteredData.filter(({ attitude }) =>
+			attitudes.includes(attitude)
+		);
+		return filteredAttitude;
+	};
+
 export default commentSlice.reducer;
