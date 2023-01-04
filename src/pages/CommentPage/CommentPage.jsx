@@ -32,7 +32,6 @@ export default function CommentPage() {
 	const [index, setIndex] = useState(0);
 	const [displayType, setDisplayType] = useState(0);
 	const [semester, setSemester] = useState([SEMESTER_YEAR_NAME[0]]);
-	// const [year, setYear] = useState([YEAR_NAME[0]]);
 	const [learningType, setLearningType] = useState([LEARNING_TYPE_NAME[0]]);
 	const [attitude, setAttitude] = useState([
 		ATTITUDE.POSITIVE,
@@ -42,6 +41,7 @@ export default function CommentPage() {
 	const comments = useSelector(
 		selectComment(semester, learningType, attitude)
 	);
+	console.log({ comments });
 
 	useInfiniteScroll(() => setIndex(index + 1));
 
@@ -56,7 +56,6 @@ export default function CommentPage() {
 			{displayType === 0 ? (
 				<>
 					<div className="dropdown">
-						{/* <YearDropDown year={year} onChange={setYear} /> */}
 					</div>
 					<div className="dropdown">
 						<DropDown
@@ -67,10 +66,6 @@ export default function CommentPage() {
 							onChange={setSemester}
 							dataset={SEMESTER_YEAR_NAME}
 						/>
-						{/* <SemesterDropDown
-							semester={semester}
-							onChange={setSemester}
-						/> */}
 						<AttitudeDropDown
 							attitude={attitude}
 							onChange={setAttitude}

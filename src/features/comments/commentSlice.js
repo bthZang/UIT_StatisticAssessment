@@ -146,11 +146,19 @@ export const selectCommentChart = (type) => (state) => {
 	};
 };
 
-export const selectCommentOfStaff = (staffName, semesterYear) => (state) => {
-	const data = selectComment(semesterYear)(state);
-	const filteredData = data.filter((v) => v.name === staffName);
-	console.log({ filteredData });
-	return filteredData;
-};
+export const selectCommentOfStaff =
+	(
+		staffName,
+		semesterYear,
+		attitudes = [ATTITUDE.POSITIVE, ATTITUDE.NEGATIVE]
+	) =>
+	(state) => {
+		const data = selectComment(semesterYear)(state);
+		const filteredData = data.filter((v) => v.name === staffName);
+		const filteredAttitude = filteredData.filter(({ attitude }) =>
+			attitudes.includes(attitude)
+		);
+		return filteredAttitude;
+	};
 
 export default commentSlice.reducer;

@@ -7,16 +7,26 @@
 		display: flex;
 		gap: 20px;
 
-      font-size: 1.1rem;
+		font-size: 1.1rem;
 
 		.title {
+			width: max-content;
 			flex: 2;
-         font-weight: 500;
+			font-weight: 500;
 		}
 
 		.content {
 			flex: 4;
-         font-weight: 600;
+			font-weight: 600;
+
+			&.link {
+				color: #577cff;
+				cursor: pointer;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
 		}
 	}
 }
