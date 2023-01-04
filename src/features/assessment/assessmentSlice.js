@@ -10,12 +10,13 @@ export const assessmentSlice = createSlice({
 	initialState: {
 		data: [],
 		staffInfos: [],
-		status: LOAD_STATUS.IDLE,
+		status: LOAD_STATUS.LOADING,
 	},
 	reducers: {
 		loadAssessmentData: (state) => {
 			state.data = staffAssessmentDataFile;
 			state.staffInfos = staffInfoDataFile;
+			state.status = LOAD_STATUS.DONE;
 		},
 	},
 });
