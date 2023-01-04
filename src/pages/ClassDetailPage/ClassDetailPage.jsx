@@ -17,6 +17,7 @@ import { selectClassDetailAssessment } from "../../features/assessment/assessmen
 import InfoBox from "../../components/InfoBox/InfoBox";
 import CriteriaChart from "../../components/CriteriaChart/CriteriaChart";
 import { selectCommentOfClass } from "../../features/comments/commentSlice";
+import CommentTab from "./CommentTab/CommentTab";
 
 const choices = ["Thông tin cơ bản", "Nhận xét", "Biểu đồ"];
 
@@ -27,7 +28,6 @@ export default function ClassDetailPage() {
 	const [displayType, setDisplayType] = useState(0);
 
 	const data = useSelector(selectClassDetailAssessment(semesterYear, id));
-	const comments = useSelector(selectCommentOfClass(id, [semesterYear]));
 
 	function getRenderedTab() {
 		switch (displayType) {
@@ -39,6 +39,7 @@ export default function ClassDetailPage() {
 					</div>
 				);
 			case 1:
+				return <CommentTab name={id} semester={semesterYear} />;
 			case 2:
 			default:
 				return (
