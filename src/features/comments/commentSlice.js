@@ -98,6 +98,7 @@ export const selectComment =
 							attitude: ATTITUDE.POSITIVE,
 							name: value.name,
 							class: value.class,
+							subject: value.subject,
 					  }))
 					: []),
 				...(value.negative
@@ -171,6 +172,22 @@ export const selectCommentOfClass =
 		const data = selectComment(semesterYear)(state);
 		console.log({ data });
 		const filteredData = data.filter((v) => v.class === className);
+		const filteredAttitude = filteredData.filter(({ attitude }) =>
+			attitudes.includes(attitude)
+		);
+		return filteredAttitude;
+	};
+
+export const selectCommentOfSubject =
+	(
+		subjectName,
+		semesterYear,
+		attitudes = [ATTITUDE.POSITIVE, ATTITUDE.NEGATIVE]
+	) =>
+	(state) => {
+		const data = selectComment(semesterYear)(state);
+		console.log({ data });
+		const filteredData = data.filter((v) => v.subject === subjectName);
 		const filteredAttitude = filteredData.filter(({ attitude }) =>
 			attitudes.includes(attitude)
 		);

@@ -138,6 +138,7 @@ export const selectSubjectDetailAssessment =
 	};
 
 export const selectClassAssessmentData = (semester) => (state) => {
+	if (!semester) return [];
 	const data = state.assessment.data[semester];
 	const dataGroupByClass = new Map();
 	data.forEach(({ CLASS, ...other }) => {
@@ -369,6 +370,14 @@ export const selectClassDetailAssessment = (semester, className) => (state) => {
 		},
 		points,
 	};
+};
+
+export const selectSemesterOfClass = (className) => (state) => {
+	const data = Array.from(Object.entries(state.assessment.data));
+	const filteredData = data.filter(([semester, classes]) =>
+		classes?.some(({ CLASS }) => CLASS == className)
+	);
+	return filteredData.map((v) => v[0]);
 };
 
 export default assessmentSlice.reducer;

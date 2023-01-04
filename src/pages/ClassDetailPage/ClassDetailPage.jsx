@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CriteriaRadarChart from "../../components/CriteriaRadarChart/CriteriaRadarChart";
 import CriteriaTable from "../../components/CriteriaTable/CriteriaTable";
@@ -13,7 +13,10 @@ import {
 } from "../../constants/selectName";
 import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
 import { useSelector } from "react-redux";
-import { selectClassDetailAssessment } from "../../features/assessment/assessmentSlice";
+import {
+	selectClassDetailAssessment,
+	selectSemesterOfClass,
+} from "../../features/assessment/assessmentSlice";
 import InfoBox from "../../components/InfoBox/InfoBox";
 import CriteriaChart from "../../components/CriteriaChart/CriteriaChart";
 import { selectCommentOfClass } from "../../features/comments/commentSlice";
@@ -24,10 +27,15 @@ const choices = ["Thông tin cơ bản", "Nhận xét", "Biểu đồ"];
 export default function ClassDetailPage() {
 	const { id } = useParams();
 
-	const [semesterYear, setSemesterYear] = useState(SEMESTER_YEAR_NAME[0]);
+	const [semesterYear, setSemesterYear] = useState();
 	const [displayType, setDisplayType] = useState(0);
 
 	const data = useSelector(selectClassDetailAssessment(semesterYear, id));
+	const semesterDataset = useSelector(selectSemesterOfClass(id));
+
+	useEffect(() => {
+		setSemesterYear(semesterDataset[0]);
+	}, []);
 
 	function getRenderedTab() {
 		switch (displayType) {
@@ -52,14 +60,14 @@ export default function ClassDetailPage() {
 		<div className="class-detail-page">
 			<Header title={`Lớp ${id}`} />
 			<DisplayTypeInput choices={choices} setChoice={setDisplayType} />
-			<div className="dropdown">
+			{/* <div className="dropdown">
 				<SingleDropDown
 					title="học kỳ"
 					selected={semesterYear}
 					onChange={setSemesterYear}
-					dataset={SEMESTER_YEAR_NAME}
+					dataset={semesterDataset}
 				/>
-			</div>
+			</div> */}
 			{data ? <>{getRenderedTab()}</> : <h3>Không có dữ liệu</h3>}
 		</div>
 	);

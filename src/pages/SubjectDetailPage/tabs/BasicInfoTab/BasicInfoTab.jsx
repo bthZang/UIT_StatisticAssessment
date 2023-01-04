@@ -25,7 +25,7 @@ export default function BasicInfoTab({ semesterYear, subjectName }) {
 	return (
 		<div className="subject-detail-basic-info-tab">
 			<div className="basic-info">
-				<InfoBox info={data?.info || {}} />
+				{/* <InfoBox info={data?.info || {}} /> */}
 				<CriteriaTable data={data?.points} />
 			</div>
 			<div className="taught-class">

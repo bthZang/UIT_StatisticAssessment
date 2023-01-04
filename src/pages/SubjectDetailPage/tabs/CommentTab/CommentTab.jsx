@@ -5,7 +5,10 @@ import { ATTITUDE, SEMESTER_YEAR_NAME } from "../../../../constants/selectName";
 import { useSelector } from "react-redux";
 import CommentGroup from "../../../../components/CommentGroup/CommentGroup";
 import DropDown from "../../../../components/DropDown/DropDown";
-import { selectCommentOfStaff } from "../../../../features/comments/commentSlice";
+import {
+	selectCommentOfStaff,
+	selectCommentOfSubject,
+} from "../../../../features/comments/commentSlice";
 import "./CommentTab.scss";
 import AttitudeDropDown from "../../../../components/AttitudeDropDown/AttitudeDropDown";
 
@@ -16,11 +19,11 @@ export default function CommentTab({ staffName }) {
 		ATTITUDE.NEGATIVE,
 	]);
 	const comments = useSelector(
-		selectCommentOfStaff(staffName, semesterYear, attitude)
+		selectCommentOfSubject(staffName, semesterYear, attitude)
 	);
 
 	return (
-		<div className="comment-tab">
+		<div className="subject-detail-comment-tab">
 			<div className="dropdown">
 				<DropDown
 					title="kỳ"

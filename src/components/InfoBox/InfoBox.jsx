@@ -14,7 +14,7 @@ export default function InfoBox({ info, width = "100%" }) {
 		<div className="info-box-container" style={{ width }}>
 			{Array.from(Object.entries(info)).map(([title, content]) => (
 				<>
-					{title !== "link" ? (
+					{title !== "link" && content ? (
 						<div className="info-text">
 							<p className="title">{title}</p>
 							<p

@@ -30,7 +30,7 @@ export const options = {
 		},
 		title: {
 			display: true,
-			text: "Biểu đồ điểm đánh giá giảng viên theo từng lớp đã dạy",
+			text: "Biểu đồ điểm đánh giá giảng viên theo từng lớp",
 			font: {
 				size: 18,
 			},

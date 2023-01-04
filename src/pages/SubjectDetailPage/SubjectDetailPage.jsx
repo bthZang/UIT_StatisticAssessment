@@ -17,8 +17,13 @@ import {
 import InfoBox from "../../components/InfoBox/InfoBox";
 import BasicInfoTab from "./tabs/BasicInfoTab/BasicInfoTab";
 import AssessmentTab from "./tabs/AssessmentTab/AssessmentTab";
+import CommentTab from "./tabs/CommentTab/CommentTab";
 
-const choices = ["Danh sách giảng viên", "Thống kê điểm đánh giá của từng lớp"];
+const choices = [
+	"Danh sách giảng viên",
+	"Nhận xét",
+	"Thống kê điểm đánh giá của từng lớp",
+];
 
 export default function SubjectDetailPage() {
 	const { subjectName } = useParams();
@@ -44,7 +49,7 @@ export default function SubjectDetailPage() {
 					</>
 				);
 			case 1:
-			// return <CommentTab name={id} semester={semesterYear} />;
+				return <CommentTab name={subjectName} semester={semesterYear} />;
 			case 2:
 			default:
 				return <AssessmentTab subjectName={subjectName} />;

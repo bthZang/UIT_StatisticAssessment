@@ -9,8 +9,6 @@ import "./CommentGroup.scss";
 import InfoBox from "../InfoBox/InfoBox";
 
 export default function CommentGroup({ comments, staffName }) {
-	const navigate = useNavigate();
-
 	const commentInfo = useRef(null);
 
 	const [keyword, setKeyword] = useState("");
@@ -26,7 +24,7 @@ export default function CommentGroup({ comments, staffName }) {
 		commentInfo.current = {
 			Lớp: comment.class,
 			"Tên giảng viên dạy": comment.name,
-			"Năm học": comment.category,
+			"Năm học": comment.category.split(", ").slice(0, 2).join(", "),
 			link: {
 				Lớp: `/class/${comment.class}`,
 				"Tên giảng viên dạy": `/staff/${comment.name}`,
@@ -39,6 +37,17 @@ export default function CommentGroup({ comments, staffName }) {
 			<SearchBox
 				placeholder="Nhập từ khóa cần tìm kiếm..."
 				onChange={setKeyword}
+			/>
+			<InfoBox
+				width={800}
+				info={{
+					"Số lượng nhận xét tích cực": comments.filter(
+						(v) => v.attitude === ATTITUDE.POSITIVE
+					).length,
+					"Số lượng nhận xét tiêu cực": comments.filter(
+						(v) => v.attitude === ATTITUDE.NEGATIVE
+					).length,
+				}}
 			/>
 			<div className="comment-groups">
 				{comments.slice(0, index * 10).map((comment, index) =>
@@ -71,7 +80,7 @@ export default function CommentGroup({ comments, staffName }) {
 						{/* <p className="class">{commentInfo.current.class}</p>
 						<p className="staff">{commentInfo.current.name}</p>
 						<p className="time">{commentInfo.current.category}</p> */}
-						<InfoBox info={commentInfo.current} />
+						<InfoBox width={500} info={commentInfo.current} />
 					</div>
 				</Modal>
 			) : null}
