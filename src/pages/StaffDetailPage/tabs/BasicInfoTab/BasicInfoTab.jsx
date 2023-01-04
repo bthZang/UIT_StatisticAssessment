@@ -42,9 +42,7 @@ export default function BasicInfoTab({ staffName }) {
 									{info.map(({ CLASS, SUBJECT, TYPE, AVG }) => (
 										<div
 											className="class link"
-											onClick={() =>
-												navigate(`/class/${CLASS}-${semester}`)
-											}
+											onClick={() => navigate(`/class/${CLASS}`)}
 										>
 											<p className="name">{CLASS}</p>
 											<p className="subject">{SUBJECT}</p>

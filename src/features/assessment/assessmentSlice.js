@@ -46,6 +46,97 @@ export const selectSubjectAssessmentData = (semester) => (state) => {
 	return Array.from(dataGroupBySubject.entries());
 };
 
+export const selectSubjectDetailAssessment =
+	(semester, subjectName) => (state) => {
+		const data = selectSubjectAssessmentData(semester)(state);
+		const filteredData = data.find(([name]) => name === subjectName)[1];
+		const summaryData = filteredData.reduce((summary, classData, index) => {
+			const newSummary = new Map(summary);
+			const valueArray = Array.from(Object.entries(classData));
+			valueArray.forEach(([key, value]) => {
+				if (!isNaN(parseInt(key)) || key == "AVG") {
+					newSummary.set(
+						key,
+						((newSummary.get(key) || 0) * index + value) / (index + 1)
+					);
+				} else if (key == "CLASS") {
+					newSummary.set("class", [
+						...(newSummary.get("class") || []),
+						{
+							name: value,
+							point: classData.AVG,
+						},
+					]);
+				} else if (key == "TEACHER") {
+					newSummary.set("teacher", [
+						...(newSummary.get("teacher") || []),
+						{
+							name: value,
+							point: classData.AVG,
+							classInfo: {
+								name: classData.CLASS,
+								point: classData.AVG,
+								type: classData.TYPE,
+								number: classData.NUMBER,
+								joined: classData.JOINED,
+							},
+						},
+					]);
+				}
+			});
+			return newSummary;
+		}, new Map());
+		summaryData.set("classes", Array.from(new Set(summaryData.get("class"))));
+		summaryData.set(
+			"teachers",
+			Array.from(
+				summaryData
+					.get("teacher")
+					.reduce((total, { name, point, classInfo }) => {
+						const newTotal = new Map(total);
+						newTotal.set(name, {
+							point: (newTotal.get(name)?.point || 0) + point,
+							number: (newTotal.get(name)?.number || 0) + 1,
+							classes: [
+								...(newTotal.get(name)?.classes || []),
+								classInfo,
+							],
+						});
+						return newTotal;
+					}, new Map())
+					.entries()
+			).map(([staffName, { point, number, classes }]) => ({
+				name: staffName,
+				point: parseFloat((point / number).toFixed(2)),
+				classes: classes.sort((a, b) => b.point - a.point),
+			}))
+		);
+
+		const summaryEntries = Array.from(summaryData.entries());
+
+		const points = summaryEntries
+			.filter(([key]) => !isNaN(parseInt(key)))
+			.map(([key, value]) => ({
+				id: key,
+				criteria: CRITERIA_NAME_LT[key],
+				point: value.toFixed(2),
+			}));
+
+		return {
+			classes: Object.fromEntries(summaryEntries).classes.sort(
+				(a, b) => b.point - a.point
+			),
+			teachers: Object.fromEntries(summaryEntries).teachers.sort(
+				(a, b) => b.point - a.point
+			),
+			info: {
+				"Điểm đánh giá trung bình":
+					Object.fromEntries(summaryEntries).AVG.toFixed(2),
+			},
+			points,
+		};
+	};
+
 export const selectClassAssessmentData = (semester) => (state) => {
 	const data = state.assessment.data[semester];
 	const dataGroupByClass = new Map();
@@ -187,6 +278,19 @@ export const selectClassOfStaff = (staffName) => (state) => {
 	Object.entries(assessment).forEach(([semester, classObject]) => {
 		classObject?.forEach(({ TEACHER, ...other }) => {
 			if (TEACHER === staffName)
+				classes.set(semester, [...(classes.get(semester) || []), other]);
+		});
+	});
+	const classArray = Array.from(classes.entries());
+	return classArray;
+};
+
+export const selectClassOfSubject = (subjectName) => (state) => {
+	const assessment = state.assessment.data;
+	const classes = new Map();
+	Object.entries(assessment).forEach(([semester, classObject]) => {
+		classObject?.forEach(({ SUBJECT, ...other }) => {
+			if (SUBJECT === subjectName)
 				classes.set(semester, [...(classes.get(semester) || []), other]);
 		});
 	});

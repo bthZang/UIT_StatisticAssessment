@@ -1,0 +1,171 @@
+.subject-detail-basic-info-tab {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	row-gap: 80px;
+	column-gap: 80px;
+	padding: 0;
+
+	h2 {
+		margin-left: -50px;
+		// margin-bottom: 20px;
+	}
+
+	h3 {
+		font-size: 1.1rem;
+		font-weight: 400;
+		margin-left: -50px;
+		margin-bottom: 20px;
+		font-style: italic;
+	}
+
+	.link {
+		color: #577cff;
+		cursor: pointer;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.basic-info {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		grid-area: 1 / 1 / span 1 / span 2;
+	}
+
+	.taught-class {
+		margin-left: 50px;
+		.taught-class-list {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+
+			.semester {
+				.semester-name {
+					width: 100%;
+					font-size: 1.1rem;
+					font-weight: 500;
+					display: flex;
+					justify-content: space-between;
+				}
+
+				.class {
+					display: flex;
+					justify-content: space-between;
+
+					padding: 5px;
+
+					font-size: 1rem;
+					font-weight: 500;
+
+					.name {
+						flex: 1.2;
+					}
+					.number {
+						flex: 1;
+						text-align: center;
+					}
+					.joined {
+						flex: 1;
+						text-align: center;
+					}
+					.type {
+						flex: 1;
+						text-align: center;
+					}
+					.avg {
+						flex: 0.8;
+						text-align: end;
+					}
+
+					&:nth-child(odd) {
+						background-color: white;
+					}
+
+					&:nth-child(even) {
+						background-color: var(--primary);
+						color: white;
+					}
+
+					&.link {
+						position: relative;
+						top: 0;
+						left: 0;
+						cursor: pointer;
+						transition: 0.3s;
+
+						&:hover {
+							transform: scale(1.1);
+							z-index: 10;
+						}
+
+						&:nth-child(odd):hover {
+							border: 1px solid black;
+						}
+					}
+				}
+
+				.total {
+					font-size: 1.1rem;
+					font-weight: 600;
+					margin-top: 20px;
+					text-align: end;
+
+					span {
+						font-size: 1.5rem;
+						font-weight: 600;
+						color: var(--primary);
+						margin-left: 5px;
+					}
+				}
+			}
+		}
+	}
+
+	.classes {
+		font-size: 1.1rem;
+		font-weight: 500;
+
+		.clasess-list {
+			background-color: #fff;
+			padding: 20px 30px;
+			border-radius: 10px;
+			display: flex;
+			flex-direction: column;
+
+			.header {
+				display: flex;
+				justify-content: space-between;
+				padding: 8px 5px;
+			}
+
+			.class {
+				display: flex;
+				justify-content: space-between;
+				padding: 5px 5px;
+				transition: 0.3s;
+				cursor: pointer;
+
+				.name {
+				}
+				.point {
+				}
+
+				&:hover {
+					transform: scale(1.1);
+					z-index: 10;
+				}
+
+				&:nth-child(even) {
+					background-color: var(--primary);
+					color: white;
+				}
+
+				&:nth-child(odd):hover {
+					border: 1px solid black;
+				}
+			}
+		}
+	}
+}

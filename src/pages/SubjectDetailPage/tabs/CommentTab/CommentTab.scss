@@ -1,0 +1,10 @@
+.comment-tab {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+
+	.dropdown {
+		display: flex;
+		gap: 50px;
+	}
+}

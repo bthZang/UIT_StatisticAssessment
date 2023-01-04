@@ -42,16 +42,11 @@ export default function SubjectTable({ semester, data, subject }) {
 							<div key={`${subjectName} ${semester}`} className="row">
 								<p
 									className="subject link"
-									onClick={() => navigate(`/staff/${subjectName}`)}
+									onClick={() => navigate(`/subject/${subjectName}`)}
 								>
 									{subjectName}
 								</p>
-								<p
-									className="major link"
-									onClick={() => navigate(`/staff/${classes[0].MSCB}`)}
-								>
-									{classes[0].MAJOR}
-								</p>
+								<p className="major">{classes[0].MAJOR}</p>
 								<div className="sub-row">
 									{classes.map(
 										({
@@ -73,7 +68,7 @@ export default function SubjectTable({ semester, data, subject }) {
 												<p
 													className="teacher link"
 													onClick={() =>
-														navigate(`/subject/${SUBJECT}`)
+														navigate(`/staff/${TEACHER}`)
 													}
 												>
 													{TEACHER}

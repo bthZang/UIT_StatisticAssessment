@@ -1,19 +1,17 @@
-// import rd3 from "react-d3-library";
-
-import "./CriteriaChart.scss";
-
-import React, { useRef } from "react";
 import {
-	Chart as ChartJS,
-	CategoryScale,
-	LinearScale,
 	BarElement,
+	CategoryScale,
+	Chart as ChartJS,
+	Legend,
+	LinearScale,
 	Title,
 	Tooltip,
-	Legend,
 } from "chart.js";
+import React, { useRef } from "react";
 import { Bar, getElementAtEvent } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { selectStaffHistogramData } from "../../features/assessment/assessmentSlice";
 
 ChartJS.register(
 	CategoryScale,
@@ -32,26 +30,45 @@ export const options = {
 		},
 		title: {
 			display: true,
-			text: "Biểu đồ điểm đánh giá",
+			text: "Biểu đồ điểm đánh giá giảng viên theo từng lớp đã dạy",
+			font: {
+				size: 18,
+			},
 		},
 	},
 	scales: {
+		x: {
+			title: {
+				display: true,
+				text: "Điểm đánh giá",
+				font: {
+					weight: 600,
+				},
+			},
+		},
 		y: {
+			title: {
+				display: true,
+				text: "Điểm đánh giá",
+				font: {
+					weight: 600,
+				},
+			},
 			beginAtZero: false,
 		},
 	},
 };
 
-export default function CriteriaChart({ data, semester }) {
+export default function SubjectClassChart({ data = [], semester }) {
 	const ref = useRef();
 	const navigate = useNavigate();
 
 	const chartData = {
-		labels: data.map((v, index) => `Tiêu chí ${index + 1}`),
+		labels: data.map((v) => v.CLASS),
 		datasets: [
 			{
-				label: `Tỉ lệ hài lòng ${semester} (%)`,
-				data: data.map((v) => v.point),
+				label: `Điểm đánh giá giảng viên ${semester} (%)`,
+				data: data.map((v) => v.AVG),
 				backgroundColor: "#bdb2ff",
 			},
 		],
@@ -62,7 +79,7 @@ export default function CriteriaChart({ data, semester }) {
 		if (eventList.length > 0) {
 			const index = eventList[0].index;
 			const label = chartData.labels[index];
-			navigate(`/criteria/${index}`);
+			navigate(`/class/${label}`);
 		}
 	}
 

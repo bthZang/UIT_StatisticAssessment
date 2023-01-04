@@ -10,23 +10,15 @@ import "./SubjectDetailPage.scss";
 import SingleDropDown from "../../components/SingleDropDown/SingleDropDown";
 import { SEMESTER_YEAR_NAME } from "../../constants/selectName";
 import { useSelector } from "react-redux";
-import { selectSubjectAssessmentData } from "../../features/assessment/assessmentSlice";
+import {
+	selectSubjectAssessmentData,
+	selectSubjectDetailAssessment,
+} from "../../features/assessment/assessmentSlice";
+import InfoBox from "../../components/InfoBox/InfoBox";
+import BasicInfoTab from "./tabs/BasicInfoTab/BasicInfoTab";
+import AssessmentTab from "./tabs/AssessmentTab/AssessmentTab";
 
-const criteriaData = Array(20)
-	.fill("")
-	.map((_, index) => ({
-		id: index,
-		criteria: `Tiêu chí ${index + 1}`,
-		point: {
-			"2017-2018": parseInt(((Math.random() + 3) / 4) * 100),
-			"2018-2019": parseInt(((Math.random() + 3) / 4) * 100),
-			"2019-2020": parseInt(((Math.random() + 3) / 4) * 100),
-			"2020-2021": parseInt(((Math.random() + 3) / 4) * 100),
-			"2021-2022": parseInt(((Math.random() + 3) / 4) * 100),
-		},
-	}));
-
-const choices = ["Danh sách giảng viên", "Biểu đồ"];
+const choices = ["Danh sách giảng viên", "Thống kê điểm đánh giá của từng lớp"];
 
 export default function SubjectDetailPage() {
 	const { subjectName } = useParams();
@@ -34,22 +26,36 @@ export default function SubjectDetailPage() {
 	const [displayType, setDisplayType] = useState(0);
 	const [semesterYear, setSemesterYear] = useState(SEMESTER_YEAR_NAME[0]);
 
-	const data = useSelector(selectSubjectAssessmentData(semesterYear));
+	function getRenderedTab() {
+		switch (displayType) {
+			case 0:
+				return (
+					<>
+						<SingleDropDown
+							title="kỳ"
+							selected={semesterYear}
+							dataset={SEMESTER_YEAR_NAME}
+							onChange={setSemesterYear}
+						/>
+						<BasicInfoTab
+							semesterYear={semesterYear}
+							subjectName={subjectName}
+						/>
+					</>
+				);
+			case 1:
+			// return <CommentTab name={id} semester={semesterYear} />;
+			case 2:
+			default:
+				return <AssessmentTab subjectName={subjectName} />;
+		}
+	}
 
 	return (
 		<div className="subject-detail-page">
 			<Header title={subjectName} />
 			<DisplayTypeInput choices={choices} setChoice={setDisplayType} />
-			<SingleDropDown
-				title="kỳ"
-				selected={semesterYear}
-				dataset={SEMESTER_YEAR_NAME}
-				onChange={setSemesterYear}
-			/>
-			{displayType == 0 ? (
-				<CriteriaTable data={data} />
-			) : // <CriteriaRadarChart data={criteriaData} />
-			null}
+			{getRenderedTab()}
 		</div>
 	);
 }
