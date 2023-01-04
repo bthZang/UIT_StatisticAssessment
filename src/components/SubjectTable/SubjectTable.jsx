@@ -35,10 +35,17 @@ export default function SubjectTable({ semester, data, subject }) {
 				</div>
 				<div className="table-body">
 					{data
-						?.filter(([staffName]) =>
-							subject.some((v) => v === staffName)
+						.filter?.(([subjectName]) =>
+							subject.some((v) => v === subjectName)
 						)
-						?.map?.(([subjectName, classes]) => (
+						.filter(([subjectName, classes]) => {
+							const regex = new RegExp(keyword, "gi");
+							return (
+								regex.test(subjectName) ||
+								regex.test(classes?.[0].CLASS)
+							);
+						})
+						.map(([subjectName, classes]) => (
 							<div key={`${subjectName} ${semester}`} className="row">
 								<p
 									className="subject link"

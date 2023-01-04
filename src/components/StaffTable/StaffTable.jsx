@@ -37,12 +37,16 @@ export default function StaffTable({ semester, data, staff }) {
 				</div>
 				<div className="table-body">
 					{data
-						?.filter(([staffName]) =>
+						.filter?.(([staffName]) =>
 							staff ? staff.some((v) => v === staffName) : true
 						)
-						?.filter(([staffName]) =>
-							staffName.toLowerCase().includes(keyword.toLowerCase())
-						)
+						.filter(([staffName, classes]) => {
+							const regex = new RegExp(keyword, "gi");
+							return (
+								regex.test(staffName) ||
+								regex.test(classes?.[0].MSCB)
+							);
+						})
 						?.map?.(([staffName, classes]) => (
 							<div key={`${staffName} ${semester}`} className="row">
 								<p

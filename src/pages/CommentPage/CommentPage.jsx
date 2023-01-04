@@ -25,10 +25,9 @@ import "./CommentPage.scss";
 import DropDown from "../../components/DropDown/DropDown";
 import CommentGroup from "../../components/CommentGroup/CommentGroup";
 
-export default function CommentPage() {
-	const navigate = useNavigate();
+const choices = ["Tìm kiếm nhận xét", "Thống kê nhận xét"];
 
-	const [keyword, setKeyword] = useState("");
+export default function CommentPage() {
 	const [index, setIndex] = useState(0);
 	const [displayType, setDisplayType] = useState(0);
 	const [semester, setSemester] = useState([SEMESTER_YEAR_NAME[0]]);
@@ -41,22 +40,16 @@ export default function CommentPage() {
 	const comments = useSelector(
 		selectComment(semester, learningType, attitude)
 	);
-	console.log({ comments });
 
 	useInfiniteScroll(() => setIndex(index + 1));
-
-	function handleClickComment() {
-		navigate("/comment/detail/");
-	}
 
 	return (
 		<div className="comment-page">
 			<Header title={"Tìm kiếm bình luận"} />
-			<DisplayTypeInput setChoice={setDisplayType} />
+			<DisplayTypeInput choices={choices} setChoice={setDisplayType} />
 			{displayType === 0 ? (
 				<>
-					<div className="dropdown">
-					</div>
+					<div className="dropdown"></div>
 					<div className="dropdown">
 						<DropDown
 							title="kỳ"
@@ -71,38 +64,7 @@ export default function CommentPage() {
 							onChange={setAttitude}
 						/>
 					</div>
-					{/* <SearchBox
-						placeholder={"Nhập từ khóa cần tìm kiếm..."}
-						onChange={setKeyword}
-					/> */}
 					<CommentGroup comments={comments} />
-					{/* <div className="comment-box">
-						<div className="comment-by-year">
-							<div className="comment-groups">
-								{comments.slice(0, index * 10).map((comment, index) =>
-									comment.content?.includes(keyword) ? (
-										<p key={index} onClick={handleClickComment}>
-											{keyword
-												? comment.content
-														.split(
-															new RegExp(`(${keyword})`, "gi")
-														)
-														.map((v) =>
-															v === keyword ? (
-																<span>{keyword}</span>
-															) : (
-																v
-															)
-														)
-												: comment.content}
-										</p>
-									) : (
-										""
-									)
-								)}
-							</div>
-						</div>
-					</div> */}
 				</>
 			) : (
 				<>
